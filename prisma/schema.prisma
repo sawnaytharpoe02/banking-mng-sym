@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model State {
+  id        String     @id @default(uuid())
+  stateCode String
+  stateName String
+  townships Township[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Township {
+  id           String @id @default(uuid())
+  townshipCode String
+  townshipName String
+
+  state     State  @relation(fields: [stateCode], references: [id])
+  stateCode String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model User {
+  id           String    @id @default(uuid())
+  customerCode String
+  customerName String
+  email        String
+  phone        String
+  address      String
+  townshipCode String
+  stateCode    String
+  account      Account[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Account {
+  id            String @id @default(uuid())
+  accountNumber String
+  balance       Float
+  customerCode  String
+  customer      User   @relation(fields: [customerCode], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model TransactionHistory {
+  id                String   @id @default(uuid())
+  fromAccountNumber Int
+  toAccountNumber   Int
+  amount            Float
+  created_at        DateTime @default(now())
+}
