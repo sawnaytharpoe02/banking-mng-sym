@@ -1,6 +1,6 @@
 import React from "react";
 import PageHeader from "@/app/_components/PageHeader";
-import Form from '@/components/ui/state/form'
+import Form from '@/components/ui/state/state-form'
 
 const CreateStatePage = () => {
   return (

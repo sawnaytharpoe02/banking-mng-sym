@@ -11,26 +11,26 @@ const sidebarItems = [
   {
     menuTitle: "State",
     subMenu: [
-      { title: "State List", href: "/state/list" },
-      { title: "Create State", href: "/state/create" },
+      { title: "State List", href: "/states" },
+      { title: "Create State", href: "/states/create" },
     ],
   },
   {
     menuTitle: "Township",
     subMenu: [
-      { title: "Township List", href: "/township/list" },
-      { title: "Create Township", href: "/township/create" },
+      { title: "Township List", href: "/townships" },
+      { title: "Create Township", href: "/townships/create" },
     ],
   },
   {
     menuTitle: "Customer",
     subMenu: [
-      { title: "Customer List", href: "/customer/list" },
-      { title: "Create Customer", href: "/customer/create" },
-      { title: "Account List", href: "/account/list" },
+      { title: "Customer List", href: "/customers" },
+      { title: "Create Customer", href: "/customers/create" },
+      { title: "Account List", href: "/accounts" },
     ],
-  },
-  {
+    },
+    {
     menuTitle: "Transcation",
     subMenu: [
       { title: "Transfer", href: "/transcation/transfer" },
@@ -41,7 +41,7 @@ const sidebarItems = [
   {
     menuTitle: "Report",
     subMenu: [
-      { title: "Transcation History", href: "/report/transcation-history" },
+      { title: "Transcation History", href: "/reports/transcation-history" },
     ],
   },
 ];
