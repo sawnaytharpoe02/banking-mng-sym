@@ -15,7 +15,7 @@ datasource db {
 
 model State {
   id        String     @id @default(uuid())
-  stateCode String
+  stateCode String     @unique
   stateName String
   townships Township[]
 
@@ -28,7 +28,7 @@ model Township {
   townshipCode String
   townshipName String
 
-  state     State  @relation(fields: [stateCode], references: [id])
+  state     State  @relation(fields: [stateCode], references: [stateCode])
   stateCode String
 
   created_at DateTime @default(now())

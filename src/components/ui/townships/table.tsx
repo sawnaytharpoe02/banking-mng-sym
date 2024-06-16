@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { State } from "@prisma/client";
+import { Township } from "@prisma/client";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -19,19 +19,19 @@ import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import DeleteAlertConfirmation from "../DeleteAlertConfirmation";
 import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
-type StateTableProps = {
-  data: State[];
+type TownshipTableProps = {
+  data: Township[];
 };
 
-const StateTable = ({ data }: StateTableProps) => {
+const TownshipTable = ({ data }: TownshipTableProps) => {
   return (
     <Table>
-      <TableCaption>A list of country states.</TableCaption>
+      <TableCaption>A list of country townships.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>No</TableHead>
-          <TableHead>State Code</TableHead>
-          <TableHead>State Name</TableHead>
+          <TableHead>Township Code</TableHead>
+          <TableHead>Township Name</TableHead>
           <TableHead className="sr-only">Actions</TableHead>
         </TableRow>
       </TableHeader>
@@ -39,8 +39,8 @@ const StateTable = ({ data }: StateTableProps) => {
         {data.map((item, i) => (
           <TableRow key={item.id}>
             <TableCell>{i + 1}</TableCell>
-            <TableCell>{item.stateCode}</TableCell>
-            <TableCell>{item.stateName}</TableCell>
+            <TableCell>{item.townshipCode}</TableCell>
+            <TableCell>{item.townshipName}</TableCell>
             <TableCell>
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -48,7 +48,7 @@ const StateTable = ({ data }: StateTableProps) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem asChild>
-                    <Link href={`/states/edit/${item.id}`}>Edit</Link>
+                    <Link href={`/townships/edit/${item.id}`}>Edit</Link>
                   </DropdownMenuItem>
                   <DeleteAlertConfirmation id={item.id}>
                     <AlertDialogTrigger asChild>
@@ -67,4 +67,4 @@ const StateTable = ({ data }: StateTableProps) => {
   );
 };
 
-export default StateTable;
+export default TownshipTable;

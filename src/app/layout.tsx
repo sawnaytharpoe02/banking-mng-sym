@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import { cn } from "@/lib/utils";
 import Sidebar from "./_components/Sidebar";
 import Navbar from "./_components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
-const font = Inter({ subsets: ["latin"], variable: "--font-sans" });
+// const font = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,12 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          font.variable
-        )}>
+    <html lang="en" className={cn("dark", GeistSans.className)}>
+      <body className={cn("min-h-screen bg-background font-sans antialiased")}>
         <main className="w-full h-full flex">
           <section className="basis-2/12 h-screen border-r px-4">
             <Sidebar />

@@ -4,7 +4,7 @@ interface IState {
   StateName: string;
 }
 
-const StateData: IState[] = [
+export const StatePlaceholder: IState[] = [
   {
     StateId: 1,
     StateCode: "MMR001",
@@ -108,13 +108,13 @@ const StateData: IState[] = [
 ];
 
 interface ITownship {
-  TownshipId: number
-  TownshipCode: string
-  TownshipName: string
-  StateCode: string
+  TownshipId: number;
+  TownshipCode: string;
+  TownshipName: string;
+  StateCode: string;
 }
 
-const TownshipData = [
+export const TownshipPlaceholder: ITownship[] = [
   {
     TownshipId: 2,
     TownshipCode: "MMR017022",

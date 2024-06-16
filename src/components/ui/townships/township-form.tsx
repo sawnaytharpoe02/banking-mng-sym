@@ -1,10 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useTransition, useEffect } from "react";
+import React, { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,43 +14,48 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { StateFormSchema } from "@/schemas";
-import { createState, updateState } from "@/app/_actions/state";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { State } from "@prisma/client";
+import { Township } from "@prisma/client";
+import { TownshipFormSchema } from "@/schemas";
+import { createTownship, updateTownship } from "@/app/_actions/township";
 
-type StateFormProps = {
-  state?: State | null;
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+type TownshipFormProps = {
+  township?: Township | null;
+  stateData: { id: string; stateCode: string; stateName: string }[];
 };
-
-const StateForm = ({ state }: StateFormProps) => {
+const TownshipForm = ({ township, stateData }: TownshipFormProps) => {
   const router = useRouter();
   const { toast } = useToast();
 
   const [pending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof StateFormSchema>>({
+  const form = useForm<z.infer<typeof TownshipFormSchema>>({
     mode: "onBlur",
-    resolver: zodResolver(StateFormSchema),
+    resolver: zodResolver(TownshipFormSchema),
     defaultValues: {
-      stateCode: state?.stateCode || "",
-      stateName: state?.stateName || "",
+      townshipCode: township?.townshipCode || "",
+      townshipName: township?.townshipName || "",
+      stateCode: township?.stateCode || "",
     },
   });
 
-  useEffect(() => {
-    localStorage.setItem("isFormModified", form.formState.isDirty.toString());
-  }, [form.formState.isDirty]);
-
-  const onSubmit = (values: z.infer<typeof StateFormSchema>) => {
+  const onSubmit = (values: z.infer<typeof TownshipFormSchema>) => {
     startTransition(async () => {
       try {
         let data;
-        if (!state) {
-          data = await createState(values);
+        if (!township) {
+          data = await createTownship(values);
         } else {
-          data = await updateState(values, state.id);
+          data = await updateTownship(values, township.id);
         }
 
         if (data?.error) {
@@ -81,14 +85,14 @@ const StateForm = ({ state }: StateFormProps) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="stateCode"
+          name="townshipCode"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>State Code</FormLabel>
+              <FormLabel>Township Code</FormLabel>
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="state code"
+                  placeholder="township code"
                   {...field}
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
@@ -102,19 +106,46 @@ const StateForm = ({ state }: StateFormProps) => {
 
         <FormField
           control={form.control}
-          name="stateName"
+          name="townshipName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>State Name</FormLabel>
+              <FormLabel>Township Name</FormLabel>
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="state name"
+                  placeholder="township name"
                   {...field}
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
                   disabled={pending}
                 />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="stateCode"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>State Code</FormLabel>
+              <FormControl>
+                <Select
+                  value={field.value}
+                  onValueChange={(value) => field.onChange(value)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select your state" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {stateData.map((item) => (
+                      <SelectItem key={item.id} value={item.stateCode}>
+                        {item.stateName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -128,4 +159,4 @@ const StateForm = ({ state }: StateFormProps) => {
   );
 };
 
-export default StateForm;
+export default TownshipForm;
