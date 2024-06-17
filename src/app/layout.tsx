@@ -6,6 +6,7 @@ import Sidebar from "./_components/Sidebar";
 import Navbar from "./_components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
+import { Divide } from "lucide-react";
 
 // const font = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -21,16 +22,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("dark", GeistSans.className)}>
-      <body className={cn("min-h-screen bg-background font-sans antialiased")}>
-        <main className="w-full h-full flex">
-          <section className="basis-2/12 h-screen border-r px-4">
+      <body
+        className={cn("bg-background font-sans antialiased overflow-hidden")}>
+        <main className="w-full h-screen flex overflow-hidden">
+          <div className="basis-2/12 h-full border-r px-4">
             <Sidebar />
-          </section>
-          <section className="basis-10/12 h-full">
+          </div>
+          <div className="basis-10/12 h-full">
             <Navbar />
-            <div className="p-5"> {children}</div>
-            <Toaster />
-          </section>
+            <div className="p-5 mt-[10vh] h-[90vh] overflow-y-auto">
+              {children}
+              <Toaster />
+            </div>
+          </div>
         </main>
       </body>
     </html>

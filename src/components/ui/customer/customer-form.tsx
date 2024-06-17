@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useTransition } from "react";
+import React, { useTransition, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -31,21 +31,38 @@ import { createUser, updateUser } from "@/app/_actions/customer";
 
 type CustomerFormProps = {
   customer?: User | null;
-  stateData?: State[];
-  townshipData?: Township[];
+  stateData: State[] | null;
+  townshipData: Township[] | null;
 };
 
-const CustomerForm = ({ customer, stateData, townshipData }: CustomerFormProps) => {
+const CustomerForm = ({
+  customer,
+  stateData,
+  townshipData,
+}: CustomerFormProps) => {
   const router = useRouter();
   const { toast } = useToast();
 
+  const [selectedState, setSelectedState] = useState<string>("");
   const [pending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof CustomerFormSchema>>({
     mode: "onBlur",
     resolver: zodResolver(CustomerFormSchema),
-    defaultValues: {},
+    defaultValues: {
+      customerName: customer?.customerName || "",
+      email: customer?.email || "",
+      phone: customer?.phone || "",
+      nrc: customer?.nrc || "",
+      address: customer?.address || "",
+      townshipCode: customer?.townshipCode || "",
+      stateCode: customer?.stateCode || "",
+    },
   });
+
+  const townshipsWithState = townshipData?.filter(
+    (item) => item.stateCode === selectedState
+  );
 
   const onSubmit = (values: z.infer<typeof CustomerFormSchema>) => {
     startTransition(async () => {
@@ -191,33 +208,6 @@ const CustomerForm = ({ customer, stateData, townshipData }: CustomerFormProps) 
 
         <FormField
           control={form.control}
-          name="townshipCode"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Township</FormLabel>
-              <FormControl>
-                <Select
-                  value={field.value}
-                  onValueChange={(value) => field.onChange(value)}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select your township" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {townshipData?.map((item) => (
-                      <SelectItem key={item.id} value={item.townshipCode}>
-                        {item.townshipName}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="stateCode"
           render={({ field }) => (
             <FormItem>
@@ -225,7 +215,10 @@ const CustomerForm = ({ customer, stateData, townshipData }: CustomerFormProps) 
               <FormControl>
                 <Select
                   value={field.value}
-                  onValueChange={(value) => field.onChange(value)}>
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    setSelectedState(value);
+                  }}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select your state" />
                   </SelectTrigger>
@@ -242,6 +235,38 @@ const CustomerForm = ({ customer, stateData, townshipData }: CustomerFormProps) 
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="townshipCode"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Township</FormLabel>
+              <FormControl>
+                <Select
+                  value={field.value}
+                  onValueChange={(value) => field.onChange(value)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select your township" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {townshipsWithState?.length ?? 0 > 0 ? (
+                      townshipsWithState?.map((item) => (
+                        <SelectItem key={item.id} value={item.townshipCode}>
+                          {item.townshipName}
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <SelectItem value="#">Township is invalid.</SelectItem>
+                    )}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <Button disabled={pending} type="submit">
           {pending ? "Saving ..." : "Save"}
         </Button>

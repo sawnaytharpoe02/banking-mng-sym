@@ -13,7 +13,6 @@ export async function createUser(values: z.infer<typeof CustomerFormSchema>) {
   }
 
   const {
-    customerCode,
     customerName,
     email,
     nrc,
