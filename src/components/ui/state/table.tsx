@@ -29,7 +29,7 @@ const StateTable = ({ data }: StateTableProps) => {
       <TableCaption>A list of country states.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>No</TableHead>
+          <TableHead>#</TableHead>
           <TableHead>State Code</TableHead>
           <TableHead>State Name</TableHead>
           <TableHead className="sr-only">Actions</TableHead>

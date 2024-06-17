@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { Township } from "@prisma/client";
+import { State, Township } from "@prisma/client";
 import { TownshipFormSchema } from "@/schemas";
 import { createTownship, updateTownship } from "@/app/_actions/township";
 
@@ -30,7 +30,7 @@ import {
 
 type TownshipFormProps = {
   township?: Township | null;
-  stateData?: { id: string; stateCode: string; stateName: string }[];
+  stateData: State[] | null;
 };
 const TownshipForm = ({ township, stateData }: TownshipFormProps) => {
   const router = useRouter();

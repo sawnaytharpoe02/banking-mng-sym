@@ -17,7 +17,7 @@ import { deleteTownship } from "@/app/_actions/township";
 
 type DeleteAlertConfirmationProps = {
   id: string;
-  options: "state" | "township";
+  options: "state" | "township" | "customer";
   children: React.ReactNode;
 };
 const DeleteAlertConfirmation = ({

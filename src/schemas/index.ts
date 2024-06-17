@@ -8,5 +8,16 @@ export const StateFormSchema = z.object({
 export const TownshipFormSchema = z.object({
   townshipCode: z.string().min(6, { message: "township code is required" }),
   townshipName: z.string().min(2, { message: "township name is required" }),
-  stateCode: z.string().min(6, { message: "state code is required" }),
+  stateCode: z.string().min(6, { message: "please select a state." }),
+});
+
+export const CustomerFormSchema = z.object({
+  customerCode: z.string().min(6, { message: "customer code is required" }),
+  customerName: z.string().min(2, { message: "customer name is required" }),
+  email: z.string({ invalid_type_error: "email is required." }).email(),
+  nrc: z.string({ invalid_type_error: "nrc is required." }),
+  phone: z.string().min(6, { message: "phone is required" }),
+  address: z.string().min(2, { message: "address is required" }),
+  townshipCode: z.string().min(6, { message: "please select a township" }),
+  stateCode: z.string().min(6, { message: "please select a state." }),
 });

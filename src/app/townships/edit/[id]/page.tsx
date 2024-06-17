@@ -1,7 +1,6 @@
 import React from "react";
 import Form from "@/components/ui/townships/township-form";
-import { fetchedStateData } from "../../create/page";
-import db from "@/db";
+import { fetchedStateData, getTownshipById } from "@/lib/data";
 
 const EditTownshipPage = async ({
   params: { id },
@@ -9,7 +8,7 @@ const EditTownshipPage = async ({
   params: { id: string };
 }) => {
   const [township, stateData] = await Promise.all([
-    db.township.findUnique({ where: { id } }),
+    getTownshipById(id),
     fetchedStateData(),
   ]);
 

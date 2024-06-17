@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Township } from "@prisma/client";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -18,29 +17,42 @@ import {
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import DeleteAlertConfirmation from "../DeleteAlertConfirmation";
 import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { User } from "@prisma/client";
 
-type TownshipTableProps = {
-  data: Township[];
+type CustomerTableProps = {
+  data: User[] | null;
 };
 
-const TownshipTable = ({ data }: TownshipTableProps) => {
+const CustomerTable = ({ data }: CustomerTableProps) => {
   return (
     <Table>
-      <TableCaption>A list of country townships.</TableCaption>
+      <TableCaption>A list of customers.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>#</TableHead>
+          <TableHead>Customer Code</TableHead>
+          <TableHead>Customer Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>NRC No</TableHead>
+          <TableHead>Phone</TableHead>
+          <TableHead>Address</TableHead>
           <TableHead>Township Code</TableHead>
-          <TableHead>Township Name</TableHead>
+          <TableHead>State Code</TableHead>
           <TableHead className="sr-only">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((item, i) => (
+        {data?.map((item, i) => (
           <TableRow key={item.id}>
             <TableCell>{i + 1}</TableCell>
+            <TableCell>{item.customerCode}</TableCell>
+            <TableCell>{item.customerName}</TableCell>
+            <TableCell>{item.email}</TableCell>
+            <TableCell>{item.nrc}</TableCell>
+            <TableCell>{item.phone}</TableCell>
+            <TableCell>{item.address}</TableCell>
             <TableCell>{item.townshipCode}</TableCell>
-            <TableCell>{item.townshipName}</TableCell>
+            <TableCell>{item.stateCode}</TableCell>
             <TableCell>
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -48,9 +60,9 @@ const TownshipTable = ({ data }: TownshipTableProps) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem asChild>
-                    <Link href={`/townships/edit/${item.id}`}>Edit</Link>
+                    <Link href={`/customers/edit/${item.id}`}>Edit</Link>
                   </DropdownMenuItem>
-                  <DeleteAlertConfirmation id={item.id} options="township">
+                  <DeleteAlertConfirmation id={item.id} options="customer">
                     <AlertDialogTrigger asChild>
                       <button className="w-full flex justify-start items-center text-sm px-2 py-1.5 rounded-sm text-white hover:bg-destructive transition-colors focus:bg-destructive">
                         Delete
@@ -67,4 +79,4 @@ const TownshipTable = ({ data }: TownshipTableProps) => {
   );
 };
 
-export default TownshipTable;
+export default CustomerTable;

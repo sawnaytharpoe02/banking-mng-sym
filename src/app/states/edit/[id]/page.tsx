@@ -1,13 +1,13 @@
 import React from "react";
 import StateForm from "@/components/ui/state/state-form";
-import db from "@/db";
+import { getStateById } from "@/lib/data";
 
 const EditStatePage = async ({
   params: { id },
 }: {
   params: { id: string };
 }) => {
-  const state = await db.state.findUnique({ where: { id } });
+  const state = await getStateById(id);
 
   if (!state)
     return (
