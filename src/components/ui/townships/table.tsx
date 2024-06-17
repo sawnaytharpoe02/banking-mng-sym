@@ -50,7 +50,7 @@ const TownshipTable = ({ data }: TownshipTableProps) => {
                   <DropdownMenuItem asChild>
                     <Link href={`/townships/edit/${item.id}`}>Edit</Link>
                   </DropdownMenuItem>
-                  <DeleteAlertConfirmation id={item.id}>
+                  <DeleteAlertConfirmation id={item.id} options="township">
                     <AlertDialogTrigger asChild>
                       <button className="w-full flex justify-start items-center text-sm px-2 py-1.5 rounded-sm text-white hover:bg-destructive transition-colors focus:bg-destructive">
                         Delete

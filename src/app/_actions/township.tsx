@@ -24,7 +24,7 @@ export async function createTownship(
 
   await db.township.create({ data: { stateCode, townshipName, townshipCode } });
 
-  revalidatePath("/townships");
+  revalidatePath("/townships")
   return { success: "Township created!", redirect: "/townships" };
 }
 
@@ -48,7 +48,7 @@ export async function updateTownship(
     data: { stateCode, townshipName, townshipCode },
   });
 
-  revalidatePath("/townships");
+  revalidatePath("/townships")
   return { success: "Township updated!", redirect: null };
 }
 

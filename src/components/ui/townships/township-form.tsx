@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useTransition } from "react";
+import React, { useTransition, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,7 @@ import {
 
 type TownshipFormProps = {
   township?: Township | null;
-  stateData: { id: string; stateCode: string; stateName: string }[];
+  stateData?: { id: string; stateCode: string; stateName: string }[];
 };
 const TownshipForm = ({ township, stateData }: TownshipFormProps) => {
   const router = useRouter();
@@ -47,6 +47,10 @@ const TownshipForm = ({ township, stateData }: TownshipFormProps) => {
       stateCode: township?.stateCode || "",
     },
   });
+
+  useEffect(() => {
+    localStorage.setItem("isFormModified", form.formState.isDirty.toString());
+  }, [form.formState.isDirty]);
 
   const onSubmit = (values: z.infer<typeof TownshipFormSchema>) => {
     startTransition(async () => {
@@ -139,7 +143,7 @@ const TownshipForm = ({ township, stateData }: TownshipFormProps) => {
                     <SelectValue placeholder="Select your state" />
                   </SelectTrigger>
                   <SelectContent>
-                    {stateData.map((item) => (
+                    {stateData?.map((item) => (
                       <SelectItem key={item.id} value={item.stateCode}>
                         {item.stateName}
                       </SelectItem>

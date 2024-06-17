@@ -1,7 +1,7 @@
 import db from "@/db";
 import React from "react";
 import Modal from "@/components/ui/Modal";
-import StateForm from "@/components/ui/state/state-form";
+import Form from "@/components/ui/state/state-form";
 
 const EditState = async ({ params: { id } }: { params: { id: string } }) => {
   const state = await db.state.findUnique({ where: { id } });
@@ -18,7 +18,7 @@ const EditState = async ({ params: { id } }: { params: { id: string } }) => {
       dialogTitle="Edit State"
       dialogDescription="Make changes to the State here. Click save when you're done.">
       <div className="p-8 max-w-md space-y-2">
-        <StateForm state={state} />
+        <Form state={state} />
       </div>
     </Modal>
   );

@@ -12,7 +12,7 @@ const EditStatePage = async ({
   if (!state)
     return (
       <div className="p-8 max-w-md space-y-2">
-        <h1 className="text-2xl">No User Found for that ID.</h1>
+        <h1 className="text-2xl">No State Found for that ID.</h1>
       </div>
     );
 

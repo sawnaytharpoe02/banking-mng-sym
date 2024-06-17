@@ -13,13 +13,16 @@ import {
 } from "@/components/ui/alert-dialog";
 import { deleteState } from "@/app/_actions/state";
 import { useRouter } from "next/navigation";
+import { deleteTownship } from "@/app/_actions/township";
 
 type DeleteAlertConfirmationProps = {
   id: string;
+  options: "state" | "township";
   children: React.ReactNode;
 };
 const DeleteAlertConfirmation = ({
   id,
+  options,
   children,
 }: DeleteAlertConfirmationProps) => {
   const [pending, startTransition] = useTransition();
@@ -32,8 +35,8 @@ const DeleteAlertConfirmation = ({
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            item and remove your data from our servers.
+            This action cannot be undone. This will permanently delete your item
+            and remove your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -42,7 +45,11 @@ const DeleteAlertConfirmation = ({
             disabled={pending}
             onClick={() => {
               startTransition(async () => {
-                await deleteState(id);
+                if (options === "state") {
+                  await deleteState(id);
+                } else if (options === "township") {
+                  await deleteTownship(id);
+                }
                 router.refresh();
               });
             }}>

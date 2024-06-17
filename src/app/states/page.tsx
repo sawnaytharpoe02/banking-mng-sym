@@ -1,7 +1,7 @@
+import React from "react";
 import StateTable from "@/components/ui/state/table";
 import PageHeader from "../_components/PageHeader";
 import db from "@/db";
-import React from "react";
 import { Input } from "@/components/ui/input";
 import GenerateStateButton from "@/components/ui/state/generate-state-btn";
 

@@ -3,7 +3,7 @@ import PageHeader from "@/app/_components/PageHeader";
 import Form from "@/components/ui/townships/township-form";
 import db from "@/db";
 
-const fetchedStateData = async () => {
+export const fetchedStateData = async () => {
   return await db.state.findMany({
     select: {
       id: true,
