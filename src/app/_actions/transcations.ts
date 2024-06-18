@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { TransferFormSchema } from "@/schemas";
+import { DepositWithDrawFormSchema, TransferFormSchema } from "@/schemas";
 import { getAccount } from "@/lib/data";
 import db from "@/db";
 import { revalidatePath } from "next/cache";
@@ -48,5 +48,62 @@ export async function transferTranscation(
     return { success: "Transfer successful." };
   } catch (error) {
     return { error: "Transition failed." };
+  }
+}
+
+export async function depositTranscation(
+  values: z.infer<typeof DepositWithDrawFormSchema>
+) {
+  const validation = DepositWithDrawFormSchema.safeParse(values);
+
+  if (!validation.success) {
+    return { error: "Invalid Fields" };
+  }
+
+  const { accountNumber, amount } = validation.data;
+
+  const existAccount = await getAccount(accountNumber);
+  if (existAccount === null) return { error: "Account not found." };
+
+  try {
+    await db.account.update({
+      where: { accountNumber },
+      data: { balance: { increment: amount } },
+    });
+
+    revalidatePath("/accounts");
+    return { success: "Deposit successful." };
+  } catch (error) {
+    return { error: "Deposit process failed." };
+  }
+}
+
+export async function withdrawTranscation(
+  values: z.infer<typeof DepositWithDrawFormSchema>
+) {
+  const validation = DepositWithDrawFormSchema.safeParse(values);
+
+  if (!validation.success) {
+    return { error: "Invalid Fields" };
+  }
+
+  const { accountNumber, amount } = validation.data;
+
+  const account = await getAccount(accountNumber);
+  if (account === null) return { error: "Account not found." };
+
+  const isBalanceEnough = account.balance >= amount;
+  if (!isBalanceEnough) return { error: "Insufficient balance." };
+
+  try {
+    await db.account.update({
+      where: { accountNumber },
+      data: { balance: { decrement: amount } },
+    });
+
+    revalidatePath("/accounts");
+    return { success: "Withdraw successful." };
+  } catch (error) {
+    return { error: "Withdraw process failed." };
   }
 }

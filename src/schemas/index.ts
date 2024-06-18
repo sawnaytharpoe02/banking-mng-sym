@@ -48,3 +48,10 @@ export const TransferFormSchema = z.object({
     .number({ message: "amount is required." })
     .gt(0, { message: "Please enter an amount greater than $0." }),
 });
+
+export const DepositWithDrawFormSchema = z.object({
+  accountNumber: z.string().min(10, { message: "account number is required" }),
+  amount: z.coerce
+    .number({ message: "amount is required." })
+    .gt(0, { message: "Please enter an amount greater than $0." }),
+});
