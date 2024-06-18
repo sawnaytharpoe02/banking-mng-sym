@@ -49,7 +49,6 @@ const CustomerForm = ({
   const [pending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof CustomerFormSchema>>({
-    mode: "onBlur",
     resolver: zodResolver(CustomerFormSchema),
     defaultValues: {
       customerName: customer?.customerName || "",

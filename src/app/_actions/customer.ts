@@ -6,14 +6,18 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { faker } from "@faker-js/faker";
 
-let generatedId = 0;
+async function generateCustomerCode(incrementBy: number = 1) {
+  const lastCustomer = await db.user.findFirst({
+    orderBy: { customerCode: "desc" },
+  });
 
-function generateCustomerCode() {
-  generatedId++;
-  const paddedId = generatedId.toString().padStart(6, "0");
-  const customerCode = "C" + paddedId;
+  let newCustomerCode = 1;
+  if (lastCustomer && lastCustomer.customerCode) {
+    newCustomerCode =
+      parseInt(lastCustomer.customerCode.slice(1), 10) + incrementBy;
+  }
 
-  return customerCode;
+  return `C${newCustomerCode.toString().padStart(6, "0")}`;
 }
 
 export async function createUser(values: z.infer<typeof CustomerFormSchema>) {
@@ -31,9 +35,19 @@ export async function createUser(values: z.infer<typeof CustomerFormSchema>) {
     return { error: "Email already exist." };
   }
 
+  const customerCode = await generateCustomerCode();
+  const existCustomerCode = await db.user.findUnique({
+    where: { customerCode },
+  });
+
+  if (existCustomerCode)
+    return {
+      error: "Failed to generate a unique customer code. Please try again.",
+    };
+
   await db.user.create({
     data: {
-      customerCode: generateCustomerCode(),
+      customerCode,
       customerName,
       email,
       nrc,
@@ -98,10 +112,18 @@ export async function deleteUser(id: string) {
 }
 
 export async function generateUser(count: number = 5) {
+  const lastCustomer = await db.user.findFirst({
+    orderBy: { created_at: "desc" },
+  });
+
+  const lastCustomerCode = lastCustomer
+    ? parseInt(lastCustomer.customerCode.slice(1), 10)
+    : 0;
+
   const userArr = Array(count)
     .fill(null)
     .map((_, i) => ({
-      customerCode: generateCustomerCode(),
+      customerCode: `C${(lastCustomerCode + i + 1).toString().padStart(6, "0")}`,
       customerName: faker.person.fullName(),
       email: faker.internet.email(),
       nrc: null,

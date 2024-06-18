@@ -5,8 +5,6 @@ import { Input } from "@/components/ui/input";
 import GenerateTownshipButton from "@/components/ui/townships/generate-township-btn";
 import db from "@/db";
 
-export const dynamic = "force-dynamic";
-
 async function fetchedTownshipData() {
   return await db.township.findMany({ orderBy: { created_at: "desc" } });
 }

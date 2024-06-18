@@ -14,13 +14,13 @@ export const TownshipFormSchema = z.object({
 export const CustomerFormSchema = z.object({
   customerName: z.string().min(2, { message: "customer name is required" }),
   email: z.string().email({ message: "please enter a valid email address." }),
-  nrc: z.string().min(12, { message: "nrc is required" }),
   phone: z.string().min(6, { message: "phone is required" }),
+  nrc: z.string().min(12, { message: "nrc is required" }),
   address: z
     .string({ invalid_type_error: "address is required." })
     .min(2, { message: "address is required" }),
-  townshipCode: z.string().min(6, { message: "please select a township" }),
   stateCode: z.string().min(6, { message: "please select a state." }),
+  townshipCode: z.string().min(6, { message: "please select a township" }),
 });
 
 export const AccountFormSchema = z.object({

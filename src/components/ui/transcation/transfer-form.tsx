@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { formatCurrency } from "@/lib/utils";
-import { transferTranscation } from "@/app/_actions/transcations";
+import { transferTransaction } from "@/app/_actions/transcations";
 
 const TransferForm = () => {
   const { toast } = useToast();
@@ -39,7 +39,7 @@ const TransferForm = () => {
   const onSubmit = (values: z.infer<typeof TransferFormSchema>) => {
     startTransition(async () => {
       try {
-        const data = await transferTranscation(values);
+        const data = await transferTransaction(values);
 
         if (data?.error) {
           form.reset();

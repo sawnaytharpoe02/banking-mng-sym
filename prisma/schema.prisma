@@ -64,8 +64,8 @@ model Account {
 
 model TransactionHistory {
   id                String   @id @default(uuid())
-  fromAccountNumber Int
-  toAccountNumber   Int
+  fromAccountNumber String
+  toAccountNumber   String
   amount            Int
   created_at        DateTime @default(now())
 }

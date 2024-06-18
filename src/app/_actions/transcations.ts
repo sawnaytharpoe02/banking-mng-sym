@@ -6,7 +6,7 @@ import { getAccount } from "@/lib/data";
 import db from "@/db";
 import { revalidatePath } from "next/cache";
 
-export async function transferTranscation(
+export async function transferTransaction(
   values: z.infer<typeof TransferFormSchema>
 ) {
   const validation = TransferFormSchema.safeParse(values);
@@ -41,6 +41,14 @@ export async function transferTranscation(
       db.account.update({
         where: { accountNumber: transferToAcc },
         data: { balance: { increment: amount } },
+      }),
+
+      db.transactionHistory.create({
+        data: {
+          fromAccountNumber: transferFromAcc,
+          toAccountNumber: transferToAcc,
+          amount
+        }
       }),
     ]);
 
