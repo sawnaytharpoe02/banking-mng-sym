@@ -43,7 +43,9 @@ const CustomerForm = ({
   const router = useRouter();
   const { toast } = useToast();
 
-  const [selectedState, setSelectedState] = useState<string>("");
+  const [selectedState, setSelectedState] = useState<string>(
+    customer?.stateCode || ""
+  );
   const [pending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof CustomerFormSchema>>({

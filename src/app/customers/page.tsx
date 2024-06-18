@@ -2,8 +2,8 @@ import React from "react";
 import CustomerTable from "@/components/ui/customer/table";
 import PageHeader from "../_components/PageHeader";
 import { Input } from "@/components/ui/input";
-import GenerateStateButton from "@/components/ui/state/generate-state-btn";
 import { fetchedCustomerData } from "@/lib/data";
+import GenerateCustomerButton from "@/components/ui/customer/generate-cusotmer-btn";
 
 const CustomerListPage = async () => {
   const userData = await fetchedCustomerData();
@@ -13,7 +13,7 @@ const CustomerListPage = async () => {
       <PageHeader>Customer List</PageHeader>
       <div className="flex items-center justify-between mb-6">
         <Input placeholder="Search ..." className="w-60" />
-        <GenerateStateButton />
+        <GenerateCustomerButton />
       </div>
       <CustomerTable data={userData} />
     </div>

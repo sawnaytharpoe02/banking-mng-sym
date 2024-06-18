@@ -4,6 +4,25 @@ import db from "@/db";
 import { CustomerFormSchema } from "@/schemas";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { faker } from "@faker-js/faker";
+
+let generatedId = 0;
+
+function generateCustomerCode() {
+  generatedId++;
+  const paddedId = generatedId.toString().padStart(6, "0");
+  const customerCode = "C" + paddedId;
+
+  return customerCode;
+}
+
+function generateAccountNumber() {
+  const min = 100000000000000;
+  const max = 999999999999999;
+  const accountNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+  return accountNumber.toString();
+}
 
 export async function createUser(values: z.infer<typeof CustomerFormSchema>) {
   const validation = CustomerFormSchema.safeParse(values);
@@ -12,22 +31,8 @@ export async function createUser(values: z.infer<typeof CustomerFormSchema>) {
     return { error: "Invaid Fields" };
   }
 
-  const {
-    customerName,
-    email,
-    nrc,
-    phone,
-    address,
-    townshipCode,
-    stateCode,
-  } = validation.data;
-
-  const exitstCustomerCode = await db.user.findFirst({
-    where: { customerCode },
-  });
-  if (exitstCustomerCode) {
-    return { error: "Customer code should be unique." };
-  }
+  const { customerName, email, nrc, phone, address, townshipCode, stateCode } =
+    validation.data;
 
   const existEmail = await db.user.findFirst({ where: { email } });
   if (existEmail) {
@@ -36,7 +41,7 @@ export async function createUser(values: z.infer<typeof CustomerFormSchema>) {
 
   await db.user.create({
     data: {
-      customerCode,
+      customerCode: generateCustomerCode(),
       customerName,
       email,
       nrc,
@@ -61,26 +66,12 @@ export async function updateUser(
     return { error: "Invaid Fields" };
   }
 
-  const {
-    customerCode,
-    customerName,
-    email,
-    phone,
-    address,
-    townshipCode,
-    stateCode,
-  } = validation.data;
+  const { customerName, email, nrc, phone, address, townshipCode, stateCode } =
+    validation.data;
 
   const exitstUser = await db.user.findUnique({ where: { id } });
-  if (exitstUser) {
-    return { error: "User already exist." };
-  }
-
-  const exitstCustomerCode = await db.user.findFirst({
-    where: { customerCode, NOT: { id } },
-  });
-  if (exitstCustomerCode) {
-    return { error: "Customer code should not be the same." };
+  if (!exitstUser) {
+    return { error: "User not found." };
   }
 
   const existEmail = await db.user.findFirst({ where: { email, NOT: { id } } });
@@ -91,9 +82,9 @@ export async function updateUser(
   await db.user.update({
     where: { id },
     data: {
-      customerCode,
       customerName,
       email,
+      nrc,
       phone,
       address,
       townshipCode,
@@ -112,4 +103,29 @@ export async function deleteUser(id: string) {
   await db.user.delete({ where: { id } });
 
   return { success: "User Deleted Successfully", redirect: null };
+}
+
+export async function generateUser(count: number = 5) {
+  const userArr = Array(count)
+    .fill(null)
+    .map((_, i) => ({
+      customerCode: generateCustomerCode(),
+      customerName: faker.person.fullName(),
+      email: faker.internet.email(),
+      nrc: null,
+      phone: faker.phone.number(),
+      address: faker.location.streetAddress(),
+      townshipCode: faker.location.zipCode(),
+      stateCode: faker.location.countryCode(),
+    }));
+
+  const res = await db.user.createMany({
+    data: userArr,
+    skipDuplicates: true,
+  });
+
+  if (!res) return { error: "Generate customer failed." };
+
+  revalidatePath("/customers");
+  return { success: "Generate customer successfully." };
 }

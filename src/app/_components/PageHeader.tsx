@@ -1,9 +1,16 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
+import { cn } from "@/lib/utils";
 
-const PageHeader = ({ children }: PropsWithChildren) => {
+const PageHeader = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   return (
     <div>
-      <p className="text-4xl font-medium mb-6">{children}</p>
+      <p className={cn("text-4xl font-medium mb-6", className)}>{children}</p>
     </div>
   );
 };

@@ -14,6 +14,7 @@ import {
 import { deleteState } from "@/app/_actions/state";
 import { useRouter } from "next/navigation";
 import { deleteTownship } from "@/app/_actions/township";
+import { deleteUser } from "@/app/_actions/customer";
 
 type DeleteAlertConfirmationProps = {
   id: string;
@@ -49,6 +50,8 @@ const DeleteAlertConfirmation = ({
                   await deleteState(id);
                 } else if (options === "township") {
                   await deleteTownship(id);
+                } else if (options === "customer") {
+                  await deleteUser(id);
                 }
                 router.refresh();
               });

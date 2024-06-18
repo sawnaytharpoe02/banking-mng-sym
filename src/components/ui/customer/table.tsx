@@ -33,7 +33,7 @@ const CustomerTable = ({ data }: CustomerTableProps) => {
           <TableHead>Customer Code</TableHead>
           <TableHead>Customer Name</TableHead>
           <TableHead>Email</TableHead>
-          <TableHead>NRC No</TableHead>
+          <TableHead>NRC</TableHead>
           <TableHead>Phone</TableHead>
           <TableHead>Address</TableHead>
           <TableHead>Township Code</TableHead>
@@ -48,7 +48,7 @@ const CustomerTable = ({ data }: CustomerTableProps) => {
             <TableCell>{item.customerCode}</TableCell>
             <TableCell>{item.customerName}</TableCell>
             <TableCell>{item.email}</TableCell>
-            <TableCell>{item.nrc}</TableCell>
+            <TableCell>{item.nrc ? item.nrc : 'N/A'}</TableCell>
             <TableCell>{item.phone}</TableCell>
             <TableCell>{item.address}</TableCell>
             <TableCell>{item.townshipCode}</TableCell>

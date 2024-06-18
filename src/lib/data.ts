@@ -39,3 +39,11 @@ export const getStateById = async (id: string) => {
     return null;
   }
 };
+
+export const getCustomerById = async (id: string) => {
+  try {
+    return await db.user.findUnique({ where: { id } });
+  } catch (error) {
+    return null;
+  }
+};
