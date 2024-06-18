@@ -1,4 +1,4 @@
-export default function TownshipsLayout({
+export default function TownshipLayout({
   children,
   modal,
 }: Readonly<{

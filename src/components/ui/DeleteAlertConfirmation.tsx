@@ -15,10 +15,11 @@ import { deleteState } from "@/app/_actions/state";
 import { useRouter } from "next/navigation";
 import { deleteTownship } from "@/app/_actions/township";
 import { deleteUser } from "@/app/_actions/customer";
+import { deleteAccount } from "@/app/_actions/account";
 
 type DeleteAlertConfirmationProps = {
   id: string;
-  options: "state" | "township" | "customer";
+  options: "state" | "township" | "customer" | "account";
   children: React.ReactNode;
 };
 const DeleteAlertConfirmation = ({
@@ -52,6 +53,8 @@ const DeleteAlertConfirmation = ({
                   await deleteTownship(id);
                 } else if (options === "customer") {
                   await deleteUser(id);
+                } else if(options === 'account'){
+                  await deleteAccount(id);
                 }
                 router.refresh();
               });

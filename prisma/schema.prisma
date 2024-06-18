@@ -37,7 +37,7 @@ model Township {
 
 model User {
   id           String    @id @default(uuid())
-  customerCode String
+  customerCode String    @unique
   customerName String
   email        String
   nrc          String?
@@ -53,10 +53,10 @@ model User {
 
 model Account {
   id            String @id @default(uuid())
-  accountNumber String
-  balance       Float
+  accountNumber String @unique
+  balance       Int
   customerCode  String
-  customer      User   @relation(fields: [customerCode], references: [id])
+  customer      User   @relation(fields: [customerCode], references: [customerCode])
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -66,6 +66,6 @@ model TransactionHistory {
   id                String   @id @default(uuid())
   fromAccountNumber Int
   toAccountNumber   Int
-  amount            Float
+  amount            Int
   created_at        DateTime @default(now())
 }

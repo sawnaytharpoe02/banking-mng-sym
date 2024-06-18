@@ -16,14 +16,6 @@ function generateCustomerCode() {
   return customerCode;
 }
 
-function generateAccountNumber() {
-  const min = 100000000000000;
-  const max = 999999999999999;
-  const accountNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-
-  return accountNumber.toString();
-}
-
 export async function createUser(values: z.infer<typeof CustomerFormSchema>) {
   const validation = CustomerFormSchema.safeParse(values);
 

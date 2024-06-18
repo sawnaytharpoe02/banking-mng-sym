@@ -1,4 +1,3 @@
-import db from "@/db";
 import React from "react";
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/townships/township-form";

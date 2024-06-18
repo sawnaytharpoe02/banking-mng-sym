@@ -22,3 +22,13 @@ export const CustomerFormSchema = z.object({
   townshipCode: z.string().min(6, { message: "please select a township" }),
   stateCode: z.string().min(6, { message: "please select a state." }),
 });
+
+export const AccountFormSchema = z.object({
+  accountNumber: z.string().min(10, { message: "account number is required" }),
+  customerCode: z.string().min(6, { message: "please select a customer" }),
+  balance: z.coerce
+    .number({ message: "balance is required." })
+    .gt(0, { message: "Please enter an amount greater than $0." }),
+});
+export const CreateAccountSchema = AccountFormSchema.omit({ accountNumber: true });
+export const UpdateAccountSchema = AccountFormSchema.omit({ customerCode: true });

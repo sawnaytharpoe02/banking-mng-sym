@@ -1,4 +1,4 @@
-export default function StateLayout({
+export default function AccountLayout({
   children,
   modal,
 }: Readonly<{
