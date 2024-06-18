@@ -74,3 +74,13 @@ export const getAccount = async (accountNumber: string) => {
     return null;
   }
 };
+
+export const fetchedTranscationHistoryData = async () => {
+  try {
+    return await db.transactionHistory.findMany({
+      orderBy: { created_at: "desc" },
+    });
+  } catch (error) {
+    return null;
+  }
+};
