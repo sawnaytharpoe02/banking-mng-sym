@@ -30,5 +30,21 @@ export const AccountFormSchema = z.object({
     .number({ message: "balance is required." })
     .gt(0, { message: "Please enter an amount greater than $0." }),
 });
-export const CreateAccountSchema = AccountFormSchema.omit({ accountNumber: true });
-export const UpdateAccountSchema = AccountFormSchema.omit({ customerCode: true });
+export const CreateAccountSchema = AccountFormSchema.omit({
+  accountNumber: true,
+});
+export const UpdateAccountSchema = AccountFormSchema.omit({
+  customerCode: true,
+});
+
+export const TransferFormSchema = z.object({
+  transferFromAcc: z
+    .string()
+    .min(10, { message: "transfer from account number is required" }),
+  transferToAcc: z
+    .string()
+    .min(10, { message: "transfer to account number is required" }),
+  amount: z.coerce
+    .number({ message: "amount is required." })
+    .gt(0, { message: "Please enter an amount greater than $0." }),
+});

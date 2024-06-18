@@ -66,3 +66,11 @@ export const getCustomerById = async (id: string) => {
     return null;
   }
 };
+
+export const getAccount = async (accountNumber: string) => {
+  try {
+    return await db.account.findUnique({ where: { accountNumber } });
+  } catch (error) {
+    return null;
+  }
+};
