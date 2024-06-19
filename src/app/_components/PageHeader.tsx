@@ -10,7 +10,9 @@ const PageHeader = ({
 }) => {
   return (
     <div>
-      <p className={cn("text-4xl font-medium mb-6", className)}>{children}</p>
+      <p className={cn("text-lg font-semibold md:text-2xl mb-6", className)}>
+        {children}
+      </p>
     </div>
   );
 };

@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 // import { Inter } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { cn } from "@/lib/utils";
-import Sidebar from "./_components/Sidebar";
-import Navbar from "./_components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
+import RightSideMenuDropdown from "./_components/RightSideMenuDropdown";
+import LeftSideSearchInput from "./_components/LeftSideSearchInput";
+import SmallScreenSidebar from "./_components/SmallScreenSidebar";
 import "./globals.css";
-import { Divide } from "lucide-react";
+import Sidebar from "./_components/Sidebar";
+import Topbar from "./_components/Topbar";
 
 // const font = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -17,25 +19,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={cn("dark", GeistSans.className)}>
       <body
         className={cn("bg-background font-sans antialiased overflow-hidden")}>
-        <main className="w-full h-screen flex overflow-hidden">
-          <div className="basis-2/12 h-full border-r px-4">
+        <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+          <div className="hidden border-r bg-muted/40 md:block">
             <Sidebar />
           </div>
-          <div className="basis-10/12 h-full">
-            <Navbar />
-            <div className="p-5 mt-[10vh] h-[90vh] overflow-y-auto">
-              {children}
-              <Toaster />
-            </div>
+          <div className="flex flex-col">
+            <Topbar />
+            <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+              <div>
+                {children}
+                <Toaster />
+              </div>
+            </main>
           </div>
-        </main>
+        </div>
       </body>
     </html>
   );

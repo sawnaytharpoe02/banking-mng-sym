@@ -1,37 +1,50 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+  Bell,
+  Home,
+  Box,
+  LineChart,
+  Users,
+  UserRoundCog,
+  MessageCircleWarning,
+  Package2,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import SideLink from "./SideLink";
+import SubmenuDropdown from "./SubmenuDropdown";
 
-const sidebarItems = [
+export interface ISidebarItems {
+  title: string;
+  href?: string;
+  icon: React.ReactNode;
+  subMenu?: { title: string; href: string }[];
+}
+
+const SidebarItems: ISidebarItems[] = [
   {
-    menuTitle: "State",
-    subMenu: [
-      { title: "State List", href: "/states" },
-      { title: "Create State", href: "/states/create" },
-    ],
+    title: "State",
+    href: "/states",
+    icon: <Home className="w-4 h-4" />,
   },
   {
-    menuTitle: "Township",
-    subMenu: [
-      { title: "Township List", href: "/townships" },
-      { title: "Create Township", href: "/townships/create" },
-    ],
+    title: "Township",
+    href: "/townships",
+    icon: <Box className="w-4 h-4" />,
   },
   {
-    menuTitle: "Customer",
-    subMenu: [
-      { title: "Customer List", href: "/customers" },
-      { title: "Create Customer", href: "/customers/create" },
-      { title: "Account List", href: "/accounts" },
-    ],
-    },
-    {
-    menuTitle: "Transcation",
+    title: "Customer",
+    href: "/customers",
+    icon: <Users className="w-4 h-4" />,
+  },
+  {
+    title: "Account",
+    href: "/accounts",
+    icon: <UserRoundCog className="w-4 h-4" />,
+  },
+  {
+    title: "Transcation",
+    icon: <LineChart className="w-4 h-4" />,
     subMenu: [
       { title: "Transfer", href: "/transcation/transfer" },
       { title: "Withdraw", href: "/transcation/withdraw" },
@@ -39,7 +52,8 @@ const sidebarItems = [
     ],
   },
   {
-    menuTitle: "Report",
+    title: "Report",
+    icon: <MessageCircleWarning className="w-4 h-4" />,
     subMenu: [
       { title: "Transcation History", href: "/reports/transcation-history" },
     ],
@@ -48,40 +62,37 @@ const sidebarItems = [
 
 const Sidebar = () => {
   return (
-    <div>
-      <div className="h-16 flex items-center px-5">
-        <p className="text-3xl font-bold">BankMS</p>
+    <div className="flex h-full max-h-screen flex-col gap-2">
+      <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+        <Link href="/" className="flex items-center gap-2 font-semibold">
+          <Package2 className="h-6 w-6" />
+          <span className="">Bank Inc</span>
+        </Link>
+        <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
+          <Bell className="h-4 w-4" />
+          <span className="sr-only">Toggle notifications</span>
+        </Button>
       </div>
-      <Accordion type="multiple">
-        {sidebarItems.map((item, i) => {
-          return (
-            <AccordionItem
-              key={`${i}_${item.menuTitle}`}
-              value={`value-${i + 1}`}>
-              <AccordionTrigger>{item.menuTitle}</AccordionTrigger>
-              <AccordionContent className="space-y-3">
-                {item.subMenu.map((subItem, j) => (
-                  <SideLink key={j} href={subItem.href} title={subItem.title} />
-                ))}
-              </AccordionContent>
-            </AccordionItem>
-          );
-        })}
-      </Accordion>
+      <div className="flex-1">
+        <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+          {SidebarItems.map((item, i) => {
+            if (item.href) {
+              return (
+                <SideLink
+                  key={i + item.title}
+                  title={item.title}
+                  href={item.href}
+                  icon={item.icon}
+                />
+              );
+            } else {
+              return <SubmenuDropdown index={i} item={item} />;
+            }
+          })}
+        </nav>
+      </div>
     </div>
   );
 };
 
 export default Sidebar;
-
-type SideLinkProps = {
-  href: string;
-  title: string;
-};
-const SideLink = ({ title, href }: SideLinkProps) => {
-  return (
-    <div>
-      <Link href={href}>{title}</Link>
-    </div>
-  );
-};
