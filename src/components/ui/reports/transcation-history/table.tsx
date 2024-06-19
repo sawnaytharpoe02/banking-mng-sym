@@ -8,10 +8,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
+import { TransactionHistory } from "@prisma/client";
+import dayjs from "dayjs";
 
-type TranscationHistoryTableProps = {};
+type TranscationHistoryTableProps = {
+  data: TransactionHistory[] | null;
+};
 
-const TranscationHistoryTable = ({}: TranscationHistoryTableProps) => {
+const TranscationHistoryTable = ({ data }: TranscationHistoryTableProps) => {
   return (
     <Table>
       <TableCaption>A list of accounts.</TableCaption>
@@ -25,15 +29,15 @@ const TranscationHistoryTable = ({}: TranscationHistoryTableProps) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {/* {data?.map((item, i) => (
+        {data?.map((item, i) => (
           <TableRow key={item.id}>
             <TableCell>{i + 1}</TableCell>
-            <TableCell>{item.accountNumber}</TableCell>
-            <TableCell>{item.customer.customerName}</TableCell>
-            <TableCell>{item.customer.phone}</TableCell>
-            <TableCell>{formatCurrency(item.balance)}</TableCell>
+            <TableCell>{item.fromAccountNumber}</TableCell>
+            <TableCell>{item.toAccountNumber}</TableCell>
+            <TableCell>{dayjs(item.created_at).format("YYYY-MM-DD")}</TableCell>
+            <TableCell>{formatCurrency(item.amount)}</TableCell>
           </TableRow>
-        ))} */}
+        ))}
       </TableBody>
     </Table>
   );

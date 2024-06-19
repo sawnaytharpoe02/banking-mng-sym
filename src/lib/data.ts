@@ -1,4 +1,5 @@
 import db from "@/db";
+import { unstable_noStore as noStore } from "next/cache";
 
 export const fetchedStateData = async () => {
   try {
@@ -25,6 +26,7 @@ export const fetchedCustomerData = async () => {
 };
 
 export const fetchedAccountData = async () => {
+  noStore();
   try {
     return await db.account.findMany({
       include: { customer: true },
@@ -75,9 +77,18 @@ export const getAccount = async (accountNumber: string) => {
   }
 };
 
-export const fetchedTranscationHistoryData = async () => {
+export const fetchedTranscationHistoryData = async (
+  from: string,
+  to: string
+) => {
   try {
     return await db.transactionHistory.findMany({
+      where: {
+        created_at: {
+          gte: from ? new Date(from) : undefined,
+          lte: to ? new Date(to) : undefined,
+        },
+      },
       orderBy: { created_at: "desc" },
     });
   } catch (error) {

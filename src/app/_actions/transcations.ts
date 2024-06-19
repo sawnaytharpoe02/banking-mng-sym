@@ -17,6 +17,8 @@ export async function transferTransaction(
 
   const { transferFromAcc, transferToAcc, amount } = validation.data;
 
+  if(transferFromAcc === transferToAcc) return {error: "Transfer to and from account cannot be the same."}
+
   const [existTransferFromAcc, existTransferToAcc] = await Promise.all([
     getAccount(transferFromAcc),
     getAccount(transferToAcc),
