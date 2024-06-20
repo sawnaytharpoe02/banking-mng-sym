@@ -18,13 +18,15 @@ import {
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import DeleteAlertConfirmation from "../DeleteAlertConfirmation";
 import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { User } from "@prisma/client";
+import { fetchedCustomerData } from "@/lib/data";
 
 type CustomerTableProps = {
-  data: User[] | null;
+  query: string;
 };
 
-const CustomerTable = ({ data }: CustomerTableProps) => {
+const CustomerTable = async ({ query }: CustomerTableProps) => {
+  const data = await fetchedCustomerData(query);
+
   return (
     <Table>
       <TableCaption>A list of customers.</TableCaption>

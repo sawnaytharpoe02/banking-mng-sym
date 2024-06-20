@@ -53,7 +53,7 @@ model User {
 
 model Account {
   id            String @id @default(uuid())
-  accountNumber String @unique
+  accountNumber String @unique @db.VarChar(255)
   balance       Int
   customerCode  String
   customer      User   @relation(fields: [customerCode], references: [customerCode])
@@ -64,8 +64,8 @@ model Account {
 
 model TransactionHistory {
   id                String   @id @default(uuid())
-  fromAccountNumber String
-  toAccountNumber   String
+  fromAccountNumber String   @db.VarChar(255)
+  toAccountNumber   String   @db.VarChar(255)
   amount            Int
   created_at        DateTime @default(now())
 }

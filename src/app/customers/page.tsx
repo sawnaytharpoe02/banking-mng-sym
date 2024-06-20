@@ -1,21 +1,22 @@
 import React from "react";
 import CustomerTable from "@/components/ui/customer/table";
 import PageHeader from "../_components/PageHeader";
-import { Input } from "@/components/ui/input";
-import { fetchedCustomerData } from "@/lib/data";
 import GenerateCustomerButton from "@/components/ui/customer/generate-cusotmer-btn";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
+import AppInputSearch from "@/components/ui/AppInputSearch";
 
-const CustomerListPage = async () => {
-  const userData = await fetchedCustomerData();
-
+const CustomerListPage = async ({
+  searchParams,
+}: {
+  searchParams?: { query?: string };
+}) => {
+  const query = searchParams?.query?.toString() || "";
   return (
     <div>
       <PageHeader>Customer List</PageHeader>
-      <div className="flex items-center justify-between mb-6">
-        <Input placeholder="Search ..." className="w-60" />
+      <div className="flex items-center justify-end">
         <div className="flex items-center gap-4">
           <GenerateCustomerButton />
           <Button asChild>
@@ -26,8 +27,13 @@ const CustomerListPage = async () => {
           </Button>
         </div>
       </div>
-      <div className="h-96 overflow-y-auto">
-        <CustomerTable data={userData} />
+      <div>
+        <div className="mb-4">
+          <AppInputSearch options="server" />
+        </div>
+        <div className="h-96 overflow-y-auto">
+          <CustomerTable query={query} />
+        </div>
       </div>
     </div>
   );

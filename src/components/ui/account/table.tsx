@@ -17,16 +17,16 @@ import {
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import DeleteAlertConfirmation from "../DeleteAlertConfirmation";
 import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { Account, User } from "@prisma/client";
 import { formatCurrency } from "@/lib/utils";
-
-type AccountWithCustomer = Account & { customer: User };
+import { fetchedAccountData } from "@/lib/data";
 
 type AccountTableProps = {
-  data: AccountWithCustomer[] | null;
+  query: string;
 };
 
-const AccountTable = ({ data }: AccountTableProps) => {
+const AccountTable = async ({ query }: AccountTableProps) => {
+  const data = await fetchedAccountData(query);
+
   return (
     <Table>
       <TableCaption>A list of accounts.</TableCaption>

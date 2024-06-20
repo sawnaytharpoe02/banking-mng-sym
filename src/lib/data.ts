@@ -25,19 +25,39 @@ export const fetchedTownshipData = async (query: string) => {
   }
 };
 
-export const fetchedCustomerData = async () => {
+export const fetchedCustomerData = async (query: string = "") => {
   noStore();
   try {
-    return await db.user.findMany({ orderBy: { created_at: "desc" } });
+    return await db.user.findMany({
+      where: {
+        OR: [
+          { customerCode: { contains: query, mode: "insensitive" } },
+          { customerName: { contains: query, mode: "insensitive" } },
+          { email: { contains: query, mode: "insensitive" } },
+          { townshipCode: { contains: query, mode: "insensitive" } },
+          { stateCode: { contains: query, mode: "insensitive" } },
+        ],
+      },
+      orderBy: { created_at: "desc" },
+    });
   } catch (error) {
     return null;
   }
 };
 
-export const fetchedAccountData = async () => {
+export const fetchedAccountData = async (query: string) => {
   noStore();
   try {
+    const queryAsNumber = parseInt(query, 10);
     return await db.account.findMany({
+      where: {
+        OR: [
+          {
+            accountNumber: { contains: query, mode: "insensitive" },
+          },
+          ...(isNaN(queryAsNumber) ? [] : [{ balance: queryAsNumber }]),
+        ],
+      },
       include: { customer: true },
       orderBy: { created_at: "desc" },
     });
