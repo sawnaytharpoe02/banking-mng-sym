@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { fetchedAccountData } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { PlusIcon } from "lucide-react";
 
 const AccountListPage = async () => {
   const accountData = await fetchedAccountData();
@@ -15,10 +16,15 @@ const AccountListPage = async () => {
       <div className="flex items-center justify-between mb-6">
         <Input placeholder="Search ..." className="w-60" />
         <Button asChild>
-          <Link href="/accounts/create">Create Account</Link>
+          <Link href="/accounts/create">
+            <PlusIcon className="w-4 h-4 mr-2" />
+            Create Account
+          </Link>
         </Button>
       </div>
-      <AccountTable data={accountData} />
+      <div className="h-96 overflow-y-auto">
+        <AccountTable data={accountData} />
+      </div>
     </div>
   );
 };

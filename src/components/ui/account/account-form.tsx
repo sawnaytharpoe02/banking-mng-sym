@@ -93,8 +93,7 @@ const AccountForm = ({ account, customer }: AccountFormProps) => {
           toast({
             description: data.success,
           });
-          if (data?.redirect !== null) router.push(data.redirect);
-          router.back();
+          data?.redirect ? router.push(data?.redirect) : router.back();
         }
       } catch (error) {
         toast({ description: "Something went wrong!" });

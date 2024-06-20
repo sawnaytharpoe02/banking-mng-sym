@@ -26,7 +26,7 @@ const GenerateStateButton = () => {
     });
   };
   return (
-    <Button onClick={handleClick} disabled={pending}>
+    <Button variant="outline" onClick={handleClick} disabled={pending}>
       {pending ? "Generating ..." : "Generate State"}
     </Button>
   );

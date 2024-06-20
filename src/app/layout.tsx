@@ -30,8 +30,8 @@ export default function RootLayout({
           </div>
           <div className="flex flex-col">
             <Topbar />
-            <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-              <div>
+            <main className="flex flex-1 flex-col">
+              <div className="h-[90vh] overflow-y-auto p-4 lg:p-6">
                 {children}
                 <Toaster />
               </div>

@@ -7,6 +7,7 @@ import { addDays } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import dayjs from "dayjs";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 const TranscationHistoryForm = () => {
   const searchParams = useSearchParams();
@@ -17,8 +18,6 @@ const TranscationHistoryForm = () => {
     from: new Date(2024, 0, 20),
     to: addDays(new Date(2024, 0, 20), 20),
   });
-
-  console.log(date);
 
   function handleSearch() {
     const params = new URLSearchParams(searchParams);
@@ -40,7 +39,7 @@ const TranscationHistoryForm = () => {
     <div>
       <div className="flex items-center justify-between">
         <DatePickerWithRange date={date} setDate={setDate} />
-        <Button onClick={handleSearch}>Search</Button>
+        <Button onClick={handleSearch}><MagnifyingGlassIcon className="w-4 h-4 mr-2"/>Search</Button>
       </div>
     </div>
   );

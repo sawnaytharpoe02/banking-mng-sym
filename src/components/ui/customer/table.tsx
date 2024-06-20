@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
@@ -33,9 +34,6 @@ const CustomerTable = ({ data }: CustomerTableProps) => {
           <TableHead>Customer Code</TableHead>
           <TableHead>Customer Name</TableHead>
           <TableHead>Email</TableHead>
-          <TableHead>NRC</TableHead>
-          <TableHead>Phone</TableHead>
-          <TableHead>Address</TableHead>
           <TableHead>Township Code</TableHead>
           <TableHead>State Code</TableHead>
           <TableHead className="sr-only">Actions</TableHead>
@@ -48,9 +46,6 @@ const CustomerTable = ({ data }: CustomerTableProps) => {
             <TableCell>{item.customerCode}</TableCell>
             <TableCell>{item.customerName}</TableCell>
             <TableCell>{item.email}</TableCell>
-            <TableCell>{item.nrc ? item.nrc : 'N/A'}</TableCell>
-            <TableCell>{item.phone}</TableCell>
-            <TableCell>{item.address}</TableCell>
             <TableCell>{item.townshipCode}</TableCell>
             <TableCell>{item.stateCode}</TableCell>
             <TableCell>
@@ -60,8 +55,12 @@ const CustomerTable = ({ data }: CustomerTableProps) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem asChild>
+                    <Link href={`/customers/view/${item.id}`}>View</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
                     <Link href={`/customers/edit/${item.id}`}>Edit</Link>
                   </DropdownMenuItem>
+                  <DropdownMenuSeparator />
                   <DeleteAlertConfirmation id={item.id} options="customer">
                     <AlertDialogTrigger asChild>
                       <button className="w-full flex justify-start items-center text-sm px-2 py-1.5 rounded-sm text-white hover:bg-destructive transition-colors focus:bg-destructive">

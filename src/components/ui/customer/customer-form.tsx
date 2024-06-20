@@ -28,17 +28,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { createUser, updateUser } from "@/app/_actions/customer";
+import Link from "next/link";
 
 type CustomerFormProps = {
   customer?: User | null;
   stateData: State[] | null;
   townshipData: Township[] | null;
+  viewForm?: boolean;
 };
 
 const CustomerForm = ({
   customer,
   stateData,
   townshipData,
+  viewForm = false,
 }: CustomerFormProps) => {
   const router = useRouter();
   const { toast } = useToast();
@@ -116,7 +119,7 @@ const CustomerForm = ({
                   {...field}
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
-                  disabled={pending}
+                  disabled={pending || viewForm}
                 />
               </FormControl>
               <FormMessage />
@@ -137,7 +140,7 @@ const CustomerForm = ({
                   {...field}
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
-                  disabled={pending}
+                  disabled={pending || viewForm}
                 />
               </FormControl>
               <FormMessage />
@@ -158,7 +161,7 @@ const CustomerForm = ({
                   {...field}
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
-                  disabled={pending}
+                  disabled={pending || viewForm}
                 />
               </FormControl>
               <FormMessage />
@@ -179,7 +182,7 @@ const CustomerForm = ({
                   {...field}
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
-                  disabled={pending}
+                  disabled={pending || viewForm}
                 />
               </FormControl>
               <FormMessage />
@@ -199,7 +202,7 @@ const CustomerForm = ({
                   {...field}
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
-                  disabled={pending}
+                  disabled={pending || viewForm}
                 />
               </FormControl>
               <FormMessage />
@@ -215,6 +218,7 @@ const CustomerForm = ({
               <FormLabel>State</FormLabel>
               <FormControl>
                 <Select
+                  disabled={pending || viewForm}
                   value={field.value}
                   onValueChange={(value) => {
                     field.onChange(value);
@@ -245,6 +249,7 @@ const CustomerForm = ({
               <FormLabel>Township</FormLabel>
               <FormControl>
                 <Select
+                  disabled={pending || viewForm}
                   value={field.value}
                   onValueChange={(value) => field.onChange(value)}>
                   <SelectTrigger className="w-full">
@@ -268,9 +273,15 @@ const CustomerForm = ({
           )}
         />
 
-        <Button disabled={pending} type="submit">
-          {pending ? "Saving ..." : "Save"}
-        </Button>
+        {viewForm ? (
+          <Button asChild>
+            <Link href="/customers">Back</Link>
+          </Button>
+        ) : (
+          <Button disabled={pending} type="submit">
+            {pending ? "Saving ..." : "Save"}
+          </Button>
+        )}
       </form>
     </Form>
   );

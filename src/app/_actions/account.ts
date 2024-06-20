@@ -34,7 +34,7 @@ export async function createAccount(
   });
 
   revalidatePath("/accounts");
-  return { success: "Account Created Successfully", redirect: "/accounts" };
+  return { success: "Account created successfully.", redirect: "/accounts" };
 }
 
 export async function updateAccount(
@@ -61,7 +61,7 @@ export async function updateAccount(
   });
 
   revalidatePath("/accounts");
-  return { success: "Account Updated Successfully", redirect: null };
+  return { success: "Account updated successfully.", redirect: null };
 }
 
 export async function deleteAccount(id: string) {

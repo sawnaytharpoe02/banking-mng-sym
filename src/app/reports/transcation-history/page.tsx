@@ -23,7 +23,7 @@ const TranscationHistoryPage = async ({
     <div>
       <PageHeader>Transcation History</PageHeader>
       <TranscationHistoryForm />
-      <div className="mt-10">
+      <div className="mt-10 h-96 overflow-y-auto">
         <TranscationHistoryTable data={transactionHistoryData} />
       </div>
     </div>

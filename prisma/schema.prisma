@@ -25,7 +25,7 @@ model State {
 
 model Township {
   id           String @id @default(uuid())
-  townshipCode String
+  townshipCode String @unique
   townshipName String
 
   state     State  @relation(fields: [stateCode], references: [stateCode])

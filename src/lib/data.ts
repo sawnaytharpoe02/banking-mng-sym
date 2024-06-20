@@ -18,6 +18,7 @@ export const fetchedTownshipData = async () => {
 };
 
 export const fetchedCustomerData = async () => {
+  noStore();
   try {
     return await db.user.findMany({ orderBy: { created_at: "desc" } });
   } catch (error) {

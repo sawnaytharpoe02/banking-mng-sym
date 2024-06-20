@@ -63,7 +63,7 @@ const SidebarItems: ISidebarItems[] = [
 const Sidebar = () => {
   return (
     <div className="flex h-full max-h-screen flex-col gap-2">
-      <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+      <div className="flex h-[8vh] items-center border-b px-4 lg:h-[10vh] lg:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold">
           <Package2 className="h-6 w-6" />
           <span className="">Bank Inc</span>
@@ -73,7 +73,7 @@ const Sidebar = () => {
           <span className="sr-only">Toggle notifications</span>
         </Button>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 py-2">
         <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
           {SidebarItems.map((item, i) => {
             if (item.href) {

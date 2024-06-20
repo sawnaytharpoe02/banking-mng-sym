@@ -7,7 +7,7 @@ import {
 } from "@/lib/data";
 import PageHeader from "@/app/_components/PageHeader";
 
-const EditCustomerPage = async ({
+const ViewCustomerPage = async ({
   params: { id },
 }: {
   params: { id: string };
@@ -21,7 +21,7 @@ const EditCustomerPage = async ({
   if (!customer)
     return (
       <div className="space-y-2">
-        <PageHeader className="mb-0">Edit Customer</PageHeader>
+        <PageHeader className="mb-0">View Customer</PageHeader>
         <p>No Customer Found for that ID.</p>
       </div>
     );
@@ -29,10 +29,10 @@ const EditCustomerPage = async ({
   return (
     <div>
       <div className="space-y-2 mb-6">
-        <PageHeader className="mb-0">Edit Customer</PageHeader>
-        <p>Make changes to the customer here. Click save when you're done.</p>
+        <PageHeader className="mb-0">View Customer</PageHeader>
       </div>
       <Form
+        viewForm
         customer={customer}
         stateData={stateData}
         townshipData={townshipData}
@@ -41,4 +41,4 @@ const EditCustomerPage = async ({
   );
 };
 
-export default EditCustomerPage;
+export default ViewCustomerPage;
