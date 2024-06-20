@@ -1,12 +1,11 @@
 import React from "react";
-import StateTable from "@/components/ui/state/table";
 import PageHeader from "../_components/PageHeader";
 import db from "@/db";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import GenerateStateButton from "@/components/ui/state/generate-state-btn";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
+import StateList from "@/components/ui/state/state-list";
 
 async function fetchedStateData() {
   return await db.state.findMany({ orderBy: { created_at: "desc" } });
@@ -18,8 +17,7 @@ const StateListPage = async () => {
   return (
     <div>
       <PageHeader>State List</PageHeader>
-      <div className="flex items-center justify-between mb-6">
-        <Input placeholder="Search State" className="w-60" />
+      <div className="flex items-center justify-end">
         <div className="flex items-center gap-4">
           <GenerateStateButton />
           <Button asChild>
@@ -30,9 +28,7 @@ const StateListPage = async () => {
           </Button>
         </div>
       </div>
-      <div className="h-96 overflow-y-auto">
-        <StateTable data={stateData} />
-      </div>
+      <StateList data={stateData}/>
     </div>
   );
 };
