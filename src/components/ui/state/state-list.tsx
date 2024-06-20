@@ -19,7 +19,7 @@ const StateList = ({ data }: { data: State[] }) => {
   return (
     <div>
       <div className="mb-4">
-        <AppInputSearch onSearch={handleSearch} />
+        <AppInputSearch onSearch={handleSearch} options="client" />
       </div>
       <div className="h-96 overflow-y-auto">
         <StateTable data={filteredData} />

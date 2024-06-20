@@ -5,7 +5,7 @@ import { z } from "zod";
 import { StateFormSchema } from "@/schemas";
 import { notFound } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { StatePlaceholder } from "@/utils/mock-data";
+import { StatePlaceholder } from "@/constants/mock-data";
 
 export async function createState(values: z.infer<typeof StateFormSchema>) {
   const validation = StateFormSchema.safeParse(values);

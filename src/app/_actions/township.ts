@@ -5,7 +5,7 @@ import { z } from "zod";
 import { TownshipFormSchema } from "@/schemas";
 import { notFound } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { TownshipPlaceholder } from "@/utils/mock-data";
+import { TownshipPlaceholder } from "@/constants/mock-data";
 
 export async function createTownship(
   values: z.infer<typeof TownshipFormSchema>

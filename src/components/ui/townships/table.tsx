@@ -18,12 +18,15 @@ import {
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import DeleteAlertConfirmation from "../DeleteAlertConfirmation";
 import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { fetchedTownshipData } from "@/lib/data";
 
 type TownshipTableProps = {
-  data: Township[];
+  query: string;
 };
 
-const TownshipTable = ({ data }: TownshipTableProps) => {
+const TownshipTable = async ({ query }: TownshipTableProps) => {
+  const data = await fetchedTownshipData(query);
+
   return (
     <Table>
       <TableCaption>A list of country townships.</TableCaption>
@@ -36,7 +39,7 @@ const TownshipTable = ({ data }: TownshipTableProps) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((item, i) => (
+        {data?.map((item, i) => (
           <TableRow key={item.id}>
             <TableCell>{i + 1}</TableCell>
             <TableCell>{item.townshipCode}</TableCell>
