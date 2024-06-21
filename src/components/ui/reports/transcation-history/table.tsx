@@ -18,7 +18,7 @@ type TranscationHistoryTableProps = {
 const TranscationHistoryTable = ({ data }: TranscationHistoryTableProps) => {
   return (
     <Table>
-      <TableCaption>A list of accounts.</TableCaption>
+      <TableCaption>A list of transaction history.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>#</TableHead>

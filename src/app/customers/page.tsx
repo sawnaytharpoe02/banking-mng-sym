@@ -16,7 +16,8 @@ const CustomerListPage = async ({
   return (
     <div>
       <PageHeader>Customer List</PageHeader>
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-between mb-6">
+        <AppInputSearch options="server" />
         <div className="flex items-center gap-4">
           <GenerateCustomerButton />
           <Button asChild>
@@ -27,13 +28,8 @@ const CustomerListPage = async ({
           </Button>
         </div>
       </div>
-      <div>
-        <div className="mb-4">
-          <AppInputSearch options="server" />
-        </div>
-        <div className="h-96 overflow-y-auto">
-          <CustomerTable query={query} />
-        </div>
+      <div className="h-96 overflow-y-auto">
+        <CustomerTable query={query} />
       </div>
     </div>
   );

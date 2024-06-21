@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Township } from "@prisma/client";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -16,9 +15,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
-import DeleteAlertConfirmation from "../DeleteAlertConfirmation";
-import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { fetchedTownshipData } from "@/lib/data";
+import DeleteDropdownItem from "../DeleteDropdownItem";
 
 type TownshipTableProps = {
   query: string;
@@ -53,13 +51,7 @@ const TownshipTable = async ({ query }: TownshipTableProps) => {
                   <DropdownMenuItem asChild>
                     <Link href={`/townships/edit/${item.id}`}>Edit</Link>
                   </DropdownMenuItem>
-                  <DeleteAlertConfirmation id={item.id} options="township">
-                    <AlertDialogTrigger asChild>
-                      <button className="w-full flex justify-start items-center text-sm px-2 py-1.5 rounded-sm text-white hover:bg-destructive transition-colors focus:bg-destructive">
-                        Delete
-                      </button>
-                    </AlertDialogTrigger>
-                  </DeleteAlertConfirmation>
+                  <DeleteDropdownItem id={item.id} options="township" />
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>

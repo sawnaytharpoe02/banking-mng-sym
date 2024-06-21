@@ -20,9 +20,11 @@ const EditTownshipPage = async ({
     );
 
   return (
-    <div className="p-8 max-w-md space-y-2">
-      <h1 className="text-2xl">Edit Township</h1>
-      <p>Make changes to the Township here. Click save when you're done.</p>
+    <div className="p-8 w-full space-y-6">
+      <div className="space-y-2">
+        <h1 className="text-2xl">Edit Township</h1>
+        <p>Make changes to the Township here. Click save when you're done.</p>
+      </div>
       <Form township={township} stateData={stateData} />
     </div>
   );

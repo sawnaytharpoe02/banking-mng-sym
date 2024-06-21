@@ -16,9 +16,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
-import DeleteAlertConfirmation from "../DeleteAlertConfirmation";
-import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { fetchedCustomerData } from "@/lib/data";
+import DeleteDropdownItem from "../DeleteDropdownItem";
 
 type CustomerTableProps = {
   query: string;
@@ -63,13 +62,7 @@ const CustomerTable = async ({ query }: CustomerTableProps) => {
                     <Link href={`/customers/edit/${item.id}`}>Edit</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DeleteAlertConfirmation id={item.id} options="customer">
-                    <AlertDialogTrigger asChild>
-                      <button className="w-full flex justify-start items-center text-sm px-2 py-1.5 rounded-sm text-white hover:bg-destructive transition-colors focus:bg-destructive">
-                        Delete
-                      </button>
-                    </AlertDialogTrigger>
-                  </DeleteAlertConfirmation>
+                  <DeleteDropdownItem id={item.id} options="customer" />
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>

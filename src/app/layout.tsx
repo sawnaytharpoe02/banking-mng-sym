@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-// import { Inter } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { cn } from "@/lib/utils";
-import { Toaster } from "@/components/ui/toaster";
-import RightSideMenuDropdown from "./_components/RightSideMenuDropdown";
-import LeftSideSearchInput from "./_components/LeftSideSearchInput";
-import SmallScreenSidebar from "./_components/SmallScreenSidebar";
 import "./globals.css";
 import Sidebar from "./_components/Sidebar";
 import Topbar from "./_components/Topbar";
-
-// const font = Inter({ subsets: ["latin"], variable: "--font-sans" });
+import ClientLayout from "./_components/ClientLayout";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,8 +26,7 @@ export default function RootLayout({
             <Topbar />
             <main className="flex flex-1 flex-col">
               <div className="h-[90vh] overflow-y-auto p-4 lg:p-6">
-                {children}
-                <Toaster />
+                <ClientLayout>{children}</ClientLayout>
               </div>
             </main>
           </div>

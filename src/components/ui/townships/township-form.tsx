@@ -33,7 +33,7 @@ type TownshipFormProps = {
   stateData: State[] | null;
 };
 const TownshipForm = ({ township, stateData }: TownshipFormProps) => {
-  const router = useRouter();
+  const { push, back } = useRouter();
   const { toast } = useToast();
 
   const [pending, startTransition] = useTransition();
@@ -75,8 +75,7 @@ const TownshipForm = ({ township, stateData }: TownshipFormProps) => {
           toast({
             description: data.success,
           });
-          if (data?.redirect !== null) router.push(data.redirect);
-          router.back();
+          data?.redirect !== null ? push(data?.redirect) : back();
         }
       } catch (error) {
         toast({ description: "Something went wrong!" });

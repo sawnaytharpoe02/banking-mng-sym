@@ -2,6 +2,7 @@ import db from "@/db";
 import { unstable_noStore as noStore } from "next/cache";
 
 export const fetchedStateData = async () => {
+  noStore();
   try {
     return await db.state.findMany({ orderBy: { created_at: "desc" } });
   } catch (error) {
@@ -9,7 +10,8 @@ export const fetchedStateData = async () => {
   }
 };
 
-export const fetchedTownshipData = async (query: string) => {
+export const fetchedTownshipData = async (query: string = "") => {
+  noStore();
   try {
     return await db.township.findMany({
       where: {
@@ -56,6 +58,14 @@ export const fetchedAccountData = async (query: string) => {
             accountNumber: { contains: query, mode: "insensitive" },
           },
           ...(isNaN(queryAsNumber) ? [] : [{ balance: queryAsNumber }]),
+          {
+            customer: {
+              OR: [
+                { customerName: { contains: query, mode: "insensitive" } },
+                { phone: { contains: query, mode: "insensitive" } },
+              ],
+            },
+          },
         ],
       },
       include: { customer: true },

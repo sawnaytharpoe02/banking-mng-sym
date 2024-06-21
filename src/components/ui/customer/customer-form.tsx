@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useTransition, useState } from "react";
+import React, { useTransition, useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -64,9 +64,9 @@ const CustomerForm = ({
     },
   });
 
-  const townshipsWithState = townshipData?.filter(
-    (item) => item.stateCode === selectedState
-  );
+  const townshipsWithState = useMemo(() => {
+    return townshipData?.filter((item) => item.stateCode === selectedState);
+  }, [selectedState]);
 
   const onSubmit = (values: z.infer<typeof CustomerFormSchema>) => {
     startTransition(async () => {

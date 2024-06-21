@@ -2,7 +2,6 @@ import React from "react";
 import PageHeader from "@/app/_components/PageHeader";
 import Form from "@/components/ui/customer/customer-form";
 import { fetchedStateData, fetchedTownshipData } from "@/lib/data";
-import db from "@/db";
 
 const CreateCustomerPage = async () => {
   const [stateData, townshipData] = await Promise.all([

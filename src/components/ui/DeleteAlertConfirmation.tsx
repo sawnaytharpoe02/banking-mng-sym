@@ -16,23 +16,15 @@ import { useRouter } from "next/navigation";
 import { deleteTownship } from "@/app/_actions/township";
 import { deleteUser } from "@/app/_actions/customer";
 import { deleteAccount } from "@/app/_actions/account";
+import { useDeleteAlert } from "@/app/context";
 
-type DeleteAlertConfirmationProps = {
-  id: string;
-  options: "state" | "township" | "customer" | "account";
-  children: React.ReactNode;
-};
-const DeleteAlertConfirmation = ({
-  id,
-  options,
-  children,
-}: DeleteAlertConfirmationProps) => {
+const DeleteAlertConfirmation = () => {
   const [pending, startTransition] = useTransition();
   const router = useRouter();
+  const { isOpen, close, id, options } = useDeleteAlert();
 
   return (
-    <AlertDialog>
-      {children}
+    <AlertDialog open={isOpen} onOpenChange={close}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -53,7 +45,7 @@ const DeleteAlertConfirmation = ({
                   await deleteTownship(id);
                 } else if (options === "customer") {
                   await deleteUser(id);
-                } else if(options === 'account'){
+                } else if (options === "account") {
                   await deleteAccount(id);
                 }
                 router.refresh();

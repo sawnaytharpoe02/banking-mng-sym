@@ -16,8 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
-import DeleteAlertConfirmation from "../DeleteAlertConfirmation";
-import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import DeleteDropdownItem from "@/components/ui/DeleteDropdownItem";
 
 type StateTableProps = {
   data: State[];
@@ -50,13 +49,7 @@ const StateTable = ({ data }: StateTableProps) => {
                   <DropdownMenuItem asChild>
                     <Link href={`/states/edit/${item.id}`}>Edit</Link>
                   </DropdownMenuItem>
-                  <DeleteAlertConfirmation id={item.id} options="state">
-                    <AlertDialogTrigger asChild>
-                      <button className="w-full flex justify-start items-center text-sm px-2 py-1.5 rounded-sm text-white hover:bg-destructive transition-colors focus:bg-destructive">
-                        Delete
-                      </button>
-                    </AlertDialogTrigger>
-                  </DeleteAlertConfirmation>
+                  <DeleteDropdownItem id={item.id} options="state"/>
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
@@ -68,3 +61,7 @@ const StateTable = ({ data }: StateTableProps) => {
 };
 
 export default StateTable;
+
+// <button className="w-full flex justify-start items-center text-sm px-2 py-1.5 rounded-sm text-white hover:bg-destructive transition-colors focus:bg-destructive">
+//   Delete
+// </button>;

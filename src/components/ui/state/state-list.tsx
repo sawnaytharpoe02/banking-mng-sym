@@ -13,12 +13,15 @@ const StateList = ({ data }: { data: State[] }) => {
   };
 
   const filteredData = data.filter((state) => {
-    return state.stateName.toLowerCase().includes(searchTerm.toLowerCase());
+    return (
+      state.stateName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      state.stateCode.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   });
 
   return (
     <div>
-      <div className="mb-4">
+      <div className="mb-6 -mt-10">
         <AppInputSearch onSearch={handleSearch} options="client" />
       </div>
       <div className="h-96 overflow-y-auto">

@@ -17,7 +17,8 @@ const TownshipListPage = async ({
   return (
     <div>
       <PageHeader>Township List</PageHeader>
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-between mb-6">
+        <AppInputSearch options="server" />
         <div className="flex items-center gap-4">
           <GenerateTownshipButton />
           <Button asChild>
@@ -28,13 +29,8 @@ const TownshipListPage = async ({
           </Button>
         </div>
       </div>
-      <div>
-        <div className="mb-4">
-          <AppInputSearch options="server" />
-        </div>
-        <div className="h-96 overflow-y-auto">
-          <TownshipTable query={query} />
-        </div>
+      <div className="h-96 overflow-y-auto">
+        <TownshipTable query={query} />
       </div>
     </div>
   );
