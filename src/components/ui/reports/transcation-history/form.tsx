@@ -9,14 +9,27 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import dayjs from "dayjs";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
-const TranscationHistoryForm = () => {
+type TranscationHistoryFormProps = {
+  fromDate: string;
+  toDate: string;
+};
+const TranscationHistoryForm = ({
+  fromDate,
+  toDate,
+}: TranscationHistoryFormProps) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
+  const fromDateFormatted = dayjs(fromDate).format("YYYY, MM, DD");
+  const toDateFormatted = dayjs(toDate).format("YYYY, MM, DD");
+
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2024, 0, 20),
-    to: addDays(new Date(2024, 0, 20), 20),
+    from: fromDate !== "" ? new Date(fromDateFormatted) : new Date(2024, 0, 20),
+    to:
+      toDate !== ""
+        ? addDays(new Date(toDateFormatted), 0)
+        : addDays(new Date(2024, 0, 20), 20),
   });
 
   function handleSearch() {
@@ -39,7 +52,10 @@ const TranscationHistoryForm = () => {
     <div>
       <div className="flex items-center justify-between">
         <DatePickerWithRange date={date} setDate={setDate} />
-        <Button onClick={handleSearch}><MagnifyingGlassIcon className="w-4 h-4 mr-2"/>Search</Button>
+        <Button onClick={handleSearch}>
+          <MagnifyingGlassIcon className="w-4 h-4 mr-2" />
+          Search
+        </Button>
       </div>
     </div>
   );

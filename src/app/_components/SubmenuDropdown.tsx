@@ -21,7 +21,7 @@ const SubmenuDropdown = ({ item, index }: SubmenuDropdownProps) => {
   const pathname = usePathname();
 
   return (
-    <Accordion type="single" collapsible>
+    <Accordion type="single" collapsible className="my-1">
       <AccordionItem className="border-none" value={`item-${index + 1}`}>
         <AccordionTrigger
           hideIcon

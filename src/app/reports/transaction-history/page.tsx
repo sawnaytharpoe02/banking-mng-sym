@@ -31,7 +31,7 @@ const TransactionHistoryPage = async ({
   return (
     <div>
       <PageHeader>Transcation History</PageHeader>
-      <TranscationHistoryForm />
+      <TranscationHistoryForm fromDate={fromDate} toDate={toDate}/>
       <div className="mt-10 h-80 overflow-y-auto">
         <Suspense
           key={currentPage + itemsPerPage}
