@@ -8,6 +8,8 @@ import TownshipTable from "@/components/ui/townships/table";
 import AppInputSearch from "@/components/ui/AppInputSearch";
 import PagePagination from "@/app/_components/PagePagination";
 import { fetchTownshipPages } from "@/lib/data";
+import { Suspense } from "react";
+import { TownshipTableSkeleton } from "@/components/ui/skeletons";
 
 const TownshipListPage = async ({
   searchParams,
@@ -36,11 +38,16 @@ const TownshipListPage = async ({
         </div>
       </div>
       <div className="h-80 overflow-y-auto">
-        <TownshipTable
-          query={query}
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-        />
+        <Suspense
+          key={query + currentPage}
+          fallback={<TownshipTableSkeleton />}>
+          <TownshipTable
+            query={query}
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+          />
+        </Suspense>
+        {/* <TownshipTableSkeleton /> */}
       </div>
       <div className="mt-12">
         <PagePagination totalPages={totalPages} itemsPerPage={itemsPerPage} />

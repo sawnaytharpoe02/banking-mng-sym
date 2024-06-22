@@ -3,6 +3,7 @@
 import React from "react";
 import { Input } from "./input";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useDebounceCallback } from "@/hooks/useDebounce";
 
 interface AppInputSearchProps {
   onSearch?: (term: string) => void;
@@ -14,7 +15,8 @@ const AppInputSearch = ({ onSearch, options }: AppInputSearchProps) => {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = (term: string) => {
+  const handleSearch = useDebounceCallback((term: string) => {
+    console.log("searching", term);
     if (options === "client") {
       if (onSearch) onSearch(term);
       return;
@@ -29,7 +31,7 @@ const AppInputSearch = ({ onSearch, options }: AppInputSearchProps) => {
     }
 
     replace(`${pathname}?${params.toString()}`);
-  };
+  }, 500);
 
   return (
     <Input

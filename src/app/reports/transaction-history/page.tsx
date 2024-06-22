@@ -1,12 +1,13 @@
 import React from "react";
 import TranscationHistoryForm from "@/components/ui/reports/transcation-history/form";
 import PageHeader from "@/app/_components/PageHeader";
-import TranscationHistoryTable from "@/components/ui/reports/transcation-history/table";
-import { fetchedTranscationHistoryData } from "@/lib/data";
+import TransactionHistoryTable from "@/components/ui/reports/transcation-history/table";
 import PagePagination from "@/app/_components/PagePagination";
 import { fetchTransactionHistoryPages } from "@/lib/data";
+import { Suspense } from "react";
+import { TransactionHistoryTableSkeleton } from "@/components/ui/skeletons";
 
-const TranscationHistoryPage = async ({
+const TransactionHistoryPage = async ({
   searchParams,
 }: {
   searchParams?: {
@@ -27,26 +28,25 @@ const TranscationHistoryPage = async ({
     itemsPerPage
   );
 
-  const transactionHistoryData = await fetchedTranscationHistoryData(
-    fromDate,
-    toDate,
-    currentPage,
-    itemsPerPage
-  );
-
-
   return (
     <div>
       <PageHeader>Transcation History</PageHeader>
       <TranscationHistoryForm />
       <div className="mt-10 h-80 overflow-y-auto">
-        <TranscationHistoryTable data={transactionHistoryData} />
+        <Suspense
+          key={currentPage + itemsPerPage}
+          fallback={<TransactionHistoryTableSkeleton />}>
+          <TransactionHistoryTable
+            fromDate={fromDate}
+            toDate={toDate}
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+          />
+        </Suspense>
       </div>
-      <div>
-        <PagePagination totalPages={totalPages} itemsPerPage={itemsPerPage} />
-      </div>
+      <PagePagination totalPages={totalPages} itemsPerPage={itemsPerPage} />
     </div>
   );
 };
 
-export default TranscationHistoryPage;
+export default TransactionHistoryPage;

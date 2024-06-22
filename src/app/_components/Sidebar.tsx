@@ -43,19 +43,19 @@ const SidebarItems: ISidebarItems[] = [
     icon: <UserRoundCog className="w-4 h-4" />,
   },
   {
-    title: "Transcation",
+    title: "Transaction",
     icon: <LineChart className="w-4 h-4" />,
     subMenu: [
-      { title: "Transfer", href: "/transcation/transfer" },
-      { title: "Withdraw", href: "/transcation/withdraw" },
-      { title: "Deposit", href: "/transcation/deposit" },
+      { title: "Transfer", href: "/transaction/transfer" },
+      { title: "Withdraw", href: "/transaction/withdraw" },
+      { title: "Deposit", href: "/transaction/deposit" },
     ],
   },
   {
     title: "Report",
     icon: <MessageCircleWarning className="w-4 h-4" />,
     subMenu: [
-      { title: "Transcation History", href: "/reports/transcation-history" },
+      { title: "Transaction History", href: "/reports/transaction-history" },
     ],
   },
 ];

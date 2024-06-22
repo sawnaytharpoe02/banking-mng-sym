@@ -36,10 +36,10 @@ const TownshipTable = async ({
       <TableCaption>A list of country townships.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>#</TableHead>
-          <TableHead>Township Code</TableHead>
-          <TableHead>Township Name</TableHead>
-          <TableHead className="sr-only">Actions</TableHead>
+          <TableHead className="w-1/6">#</TableHead>
+          <TableHead className="w-2/6">Township Code</TableHead>
+          <TableHead className="w-2/6">Township Name</TableHead>
+          <TableHead className="w-1/6 sr-only">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

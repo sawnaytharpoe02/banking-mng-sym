@@ -37,13 +37,12 @@ const CustomerTable = async ({
       <TableCaption>A list of customers.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>#</TableHead>
-          <TableHead>Customer Code</TableHead>
-          <TableHead>Customer Name</TableHead>
-          <TableHead>Email</TableHead>
-          <TableHead>Township Code</TableHead>
-          <TableHead>State Code</TableHead>
-          <TableHead className="sr-only">Actions</TableHead>
+          <TableHead className="w-1/12">#</TableHead>
+          <TableHead className="w-2/12">Customer Code</TableHead>
+          <TableHead className="w-3/12">Customer Name</TableHead>
+          <TableHead className="w-3/12">Email</TableHead>
+          <TableHead className="w-2/12">Township Code</TableHead>
+          <TableHead className="w-1/12 sr-only">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -53,9 +52,10 @@ const CustomerTable = async ({
             <TableCell>{item.customerCode}</TableCell>
             <TableCell>{item.customerName}</TableCell>
             <TableCell>{item.email}</TableCell>
-            <TableCell>{item.townshipCode !== 'invalid' ? item.townshipCode : 'N/A'}</TableCell>
-            <TableCell>{item.stateCode}</TableCell>
             <TableCell>
+              {item.townshipCode !== "invalid" ? item.townshipCode : "N/A"}
+            </TableCell>
+            <TableCell className="text-center">
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <DotsVerticalIcon />

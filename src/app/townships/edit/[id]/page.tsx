@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "@/components/ui/townships/township-form";
-import { fetchedStateData, getTownshipById } from "@/lib/data";
+import { fetchedAllStateData, getTownshipById } from "@/lib/data";
 
 const EditTownshipPage = async ({
   params: { id },
@@ -9,7 +9,7 @@ const EditTownshipPage = async ({
 }) => {
   const [township, stateData] = await Promise.all([
     getTownshipById(id),
-    fetchedStateData(),
+    fetchedAllStateData(),
   ]);
 
   if (!township)

@@ -1,8 +1,8 @@
 import React from "react";
 import Form from "@/components/ui/customer/customer-form";
 import {
-  fetchedStateData,
-  fetchedTownshipData,
+  fetchedAllStateData,
+  fetchedAllTownshipData,
   getCustomerById,
 } from "@/lib/data";
 import PageHeader from "@/app/_components/PageHeader";
@@ -14,8 +14,8 @@ const ViewCustomerPage = async ({
 }) => {
   const [customer, stateData, townshipData] = await Promise.all([
     getCustomerById(id),
-    fetchedStateData(),
-    fetchedTownshipData(),
+    fetchedAllStateData(),
+    fetchedAllTownshipData(),
   ]);
 
   if (!customer)

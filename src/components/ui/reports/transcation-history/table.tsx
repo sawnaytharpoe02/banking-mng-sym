@@ -8,24 +8,39 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
-import { TransactionHistory } from "@prisma/client";
 import dayjs from "dayjs";
+import { fetchedTranscationHistoryData } from "@/lib/data";
 
-type TranscationHistoryTableProps = {
-  data: TransactionHistory[] | null;
+type TransactionHistoryTableProps = {
+  fromDate: string;
+  toDate: string;
+  currentPage: number;
+  itemsPerPage: number;
 };
 
-const TranscationHistoryTable = ({ data }: TranscationHistoryTableProps) => {
+const TransactionHistoryTable = async ({
+  fromDate,
+  toDate,
+  currentPage,
+  itemsPerPage,
+}: TransactionHistoryTableProps) => {
+  const data = await fetchedTranscationHistoryData(
+    fromDate,
+    toDate,
+    currentPage,
+    itemsPerPage
+  );
+
   return (
     <Table>
       <TableCaption>A list of transaction history.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>#</TableHead>
-          <TableHead>From Account No</TableHead>
-          <TableHead>To Account No</TableHead>
-          <TableHead>Transcation Date</TableHead>
-          <TableHead>Amount</TableHead>
+          <TableHead className="w-1/12">#</TableHead>
+          <TableHead className="w-3/12">From Account No</TableHead>
+          <TableHead className="w-3/12">To Account No</TableHead>
+          <TableHead className="w-3/12">Transcation Date</TableHead>
+          <TableHead className="w-2/12">Amount</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -43,4 +58,4 @@ const TranscationHistoryTable = ({ data }: TranscationHistoryTableProps) => {
   );
 };
 
-export default TranscationHistoryTable;
+export default TransactionHistoryTable;

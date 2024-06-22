@@ -37,12 +37,12 @@ const AccountTable = async ({
       <TableCaption>A list of accounts.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>#</TableHead>
-          <TableHead>Account No</TableHead>
-          <TableHead>Customer Name</TableHead>
-          <TableHead>Mobile No</TableHead>
-          <TableHead>Balance</TableHead>
-          <TableHead className="sr-only">Actions</TableHead>
+          <TableHead className="w-1/12">#</TableHead>
+          <TableHead className="w-3/12">Account No</TableHead>
+          <TableHead className="w-3/12">Customer Name</TableHead>
+          <TableHead className="w-2/12">Mobile No</TableHead>
+          <TableHead className="w-2/12 text-right">Balance</TableHead>
+          <TableHead className="w-1/12 sr-only">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -52,8 +52,8 @@ const AccountTable = async ({
             <TableCell>{item.accountNumber}</TableCell>
             <TableCell>{item.customer.customerName}</TableCell>
             <TableCell>{item.customer.phone}</TableCell>
-            <TableCell>{formatCurrency(item.balance)}</TableCell>
-            <TableCell>
+            <TableCell className="text-right">{formatCurrency(item.balance)}</TableCell>
+            <TableCell className="text-center">
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <DotsVerticalIcon />

@@ -7,6 +7,8 @@ import { PlusIcon } from "lucide-react";
 import AppInputSearch from "@/components/ui/AppInputSearch";
 import PagePagination from "../_components/PagePagination";
 import { fetchAccountPages } from "@/lib/data";
+import { Suspense } from "react";
+import { AccountTableSkeleton } from "@/components/ui/skeletons";
 
 const AccountListPage = async ({
   searchParams,
@@ -32,7 +34,13 @@ const AccountListPage = async ({
         </Button>
       </div>
       <div className="h-80 overflow-y-auto">
-        <AccountTable query={query} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
+        <Suspense key={query + currentPage} fallback={<AccountTableSkeleton />}>
+          <AccountTable
+            query={query}
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+          />
+        </Suspense>
       </div>
       <div className="mt-12">
         <PagePagination totalPages={totalPages} itemsPerPage={itemsPerPage} />
