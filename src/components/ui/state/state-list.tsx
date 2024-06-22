@@ -24,7 +24,7 @@ const StateList = ({ data }: { data: State[] }) => {
       <div className="mb-6 -mt-10">
         <AppInputSearch onSearch={handleSearch} options="client" />
       </div>
-      <div className="h-96 overflow-y-auto">
+      <div className="h-80 overflow-y-auto">
         <StateTable data={filteredData} />
       </div>
     </div>

@@ -5,7 +5,7 @@ import RightSideMenuDropdown from "./RightSideMenuDropdown";
 
 const Topbar = () => {
   return (
-    <header className="flex items-center h-[8vh] gap-4 border-b bg-muted/40 px-4 lg:h-[10vh] lg:px-6">
+    <header className="flex items-center h-[8vh] md:h-[10vh] gap-4 border-b px-4 lg:px-6">
       <SmallScreenSidebar />
       <LeftSideSearchInput />
       <RightSideMenuDropdown />

@@ -1,18 +1,24 @@
 import React from "react";
-import PageHeader from "../_components/PageHeader";
+import PageHeader from "@/app/_components/PageHeader";
 import GenerateTownshipButton from "@/components/ui/townships/generate-township-btn";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import TownshipTable from "@/components/ui/townships/table";
 import AppInputSearch from "@/components/ui/AppInputSearch";
+import PagePagination from "@/app/_components/PagePagination";
+import { fetchTownshipPages } from "@/lib/data";
 
 const TownshipListPage = async ({
   searchParams,
 }: {
-  searchParams?: { query?: string };
+  searchParams?: { query?: string; page?: string; count?: string };
 }) => {
   const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
+  const itemsPerPage = Number(searchParams?.count) || 6;
+
+  const totalPages = await fetchTownshipPages(itemsPerPage, query);
 
   return (
     <div>
@@ -29,8 +35,15 @@ const TownshipListPage = async ({
           </Button>
         </div>
       </div>
-      <div className="h-96 overflow-y-auto">
-        <TownshipTable query={query} />
+      <div className="h-80 overflow-y-auto">
+        <TownshipTable
+          query={query}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+        />
+      </div>
+      <div className="mt-12">
+        <PagePagination totalPages={totalPages} itemsPerPage={itemsPerPage} />
       </div>
     </div>
   );

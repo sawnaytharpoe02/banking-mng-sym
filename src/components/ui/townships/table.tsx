@@ -20,10 +20,16 @@ import DeleteDropdownItem from "../DeleteDropdownItem";
 
 type TownshipTableProps = {
   query: string;
+  currentPage: number;
+  itemsPerPage: number;
 };
 
-const TownshipTable = async ({ query }: TownshipTableProps) => {
-  const data = await fetchedTownshipData(query);
+const TownshipTable = async ({
+  query,
+  currentPage,
+  itemsPerPage,
+}: TownshipTableProps) => {
+  const data = await fetchedTownshipData(query, currentPage, itemsPerPage);
 
   return (
     <Table>
@@ -39,7 +45,7 @@ const TownshipTable = async ({ query }: TownshipTableProps) => {
       <TableBody>
         {data?.map((item, i) => (
           <TableRow key={item.id}>
-            <TableCell>{i + 1}</TableCell>
+            <TableCell>{(currentPage - 1) * itemsPerPage + i + 1}</TableCell>
             <TableCell>{item.townshipCode}</TableCell>
             <TableCell>{item.townshipName}</TableCell>
             <TableCell>

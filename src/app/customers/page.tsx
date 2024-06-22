@@ -6,13 +6,20 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
 import AppInputSearch from "@/components/ui/AppInputSearch";
+import PagePagination from "../_components/PagePagination";
+import { fetchCustomerPages } from "@/lib/data";
 
 const CustomerListPage = async ({
   searchParams,
 }: {
-  searchParams?: { query?: string };
+  searchParams?: { query?: string; page?: string; count?: string };
 }) => {
   const query = searchParams?.query?.toString() || "";
+  const currentPage = Number(searchParams?.page) || 1;
+  const itemsPerPage = Number(searchParams?.count) || 6;
+
+  const totalPages = await fetchCustomerPages(itemsPerPage, query);
+
   return (
     <div>
       <PageHeader>Customer List</PageHeader>
@@ -28,8 +35,15 @@ const CustomerListPage = async ({
           </Button>
         </div>
       </div>
-      <div className="h-96 overflow-y-auto">
-        <CustomerTable query={query} />
+      <div className="h-80 overflow-y-auto">
+        <CustomerTable
+          query={query}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+        />
+      </div>
+      <div className="mt-12">
+        <PagePagination totalPages={totalPages} itemsPerPage={itemsPerPage} />
       </div>
     </div>
   );

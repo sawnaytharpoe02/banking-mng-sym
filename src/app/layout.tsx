@@ -18,17 +18,15 @@ export default function RootLayout({
     <html lang="en" className={cn("dark", GeistSans.className)}>
       <body
         className={cn("bg-background font-sans antialiased overflow-hidden")}>
-        <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+        <div className="grid w-full min-h-screen md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
           <div className="hidden border-r bg-muted/40 md:block">
             <Sidebar />
           </div>
-          <div className="flex flex-col">
+          <div>
             <Topbar />
-            <main className="flex flex-1 flex-col">
-              <div className="h-[90vh] overflow-y-auto p-4 lg:p-6">
-                <ClientLayout>{children}</ClientLayout>
-              </div>
-            </main>
+            <div className="h-[92vh] md:h-[90vh] p-4 md:p-6 overflow-y-auto">
+              <ClientLayout>{children}</ClientLayout>
+            </div>
           </div>
         </div>
       </body>

@@ -15,17 +15,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
-import DeleteAlertConfirmation from "../DeleteAlertConfirmation";
-import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { formatCurrency } from "@/lib/utils";
 import { fetchedAccountData } from "@/lib/data";
+import DeleteDropdownItem from "../DeleteDropdownItem";
 
 type AccountTableProps = {
   query: string;
+  currentPage: number;
+  itemsPerPage: number;
 };
 
-const AccountTable = async ({ query }: AccountTableProps) => {
-  const data = await fetchedAccountData(query);
+const AccountTable = async ({
+  query,
+  currentPage,
+  itemsPerPage,
+}: AccountTableProps) => {
+  const data = await fetchedAccountData(query, currentPage, itemsPerPage);
 
   return (
     <Table>
@@ -43,7 +48,7 @@ const AccountTable = async ({ query }: AccountTableProps) => {
       <TableBody>
         {data?.map((item, i) => (
           <TableRow key={item.id}>
-            <TableCell>{i + 1}</TableCell>
+            <TableCell>{(currentPage - 1) * itemsPerPage + i + 1}</TableCell>
             <TableCell>{item.accountNumber}</TableCell>
             <TableCell>{item.customer.customerName}</TableCell>
             <TableCell>{item.customer.phone}</TableCell>
@@ -57,13 +62,7 @@ const AccountTable = async ({ query }: AccountTableProps) => {
                   <DropdownMenuItem asChild>
                     <Link href={`/accounts/edit/${item.id}`}>Edit</Link>
                   </DropdownMenuItem>
-                  <DeleteAlertConfirmation id={item.id} options="account">
-                    <AlertDialogTrigger asChild>
-                      <button className="w-full flex justify-start items-center text-sm px-2 py-1.5 rounded-sm text-white hover:bg-destructive transition-colors focus:bg-destructive">
-                        Delete
-                      </button>
-                    </AlertDialogTrigger>
-                  </DeleteAlertConfirmation>
+                  <DeleteDropdownItem id={item.id} options="account" />
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>

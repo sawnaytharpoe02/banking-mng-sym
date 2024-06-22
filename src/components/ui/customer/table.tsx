@@ -21,10 +21,16 @@ import DeleteDropdownItem from "../DeleteDropdownItem";
 
 type CustomerTableProps = {
   query: string;
+  currentPage: number;
+  itemsPerPage: number;
 };
 
-const CustomerTable = async ({ query }: CustomerTableProps) => {
-  const data = await fetchedCustomerData(query);
+const CustomerTable = async ({
+  query,
+  currentPage,
+  itemsPerPage,
+}: CustomerTableProps) => {
+  const data = await fetchedCustomerData(query, currentPage, itemsPerPage);
 
   return (
     <Table>
@@ -43,11 +49,11 @@ const CustomerTable = async ({ query }: CustomerTableProps) => {
       <TableBody>
         {data?.map((item, i) => (
           <TableRow key={item.id}>
-            <TableCell>{i + 1}</TableCell>
+            <TableCell>{(currentPage - 1) * itemsPerPage + i + 1}</TableCell>
             <TableCell>{item.customerCode}</TableCell>
             <TableCell>{item.customerName}</TableCell>
             <TableCell>{item.email}</TableCell>
-            <TableCell>{item.townshipCode}</TableCell>
+            <TableCell>{item.townshipCode !== 'invalid' ? item.townshipCode : 'N/A'}</TableCell>
             <TableCell>{item.stateCode}</TableCell>
             <TableCell>
               <DropdownMenu>

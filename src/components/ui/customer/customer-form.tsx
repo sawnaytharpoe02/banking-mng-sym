@@ -263,7 +263,7 @@ const CustomerForm = ({
                         </SelectItem>
                       ))
                     ) : (
-                      <SelectItem value="#">Township is invalid.</SelectItem>
+                      <SelectItem value="invalid">Township is invalid.</SelectItem>
                     )}
                   </SelectContent>
                 </Select>
