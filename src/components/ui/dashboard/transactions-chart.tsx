@@ -18,6 +18,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "../button";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
+import { wait } from "@/lib/utils";
 
 async function getTransactionsHistoryData() {
   return await db.transactionHistory.findMany({
@@ -41,6 +42,7 @@ async function getTransactionsHistoryData() {
 }
 
 const TransactionsChart = async () => {
+  await wait(2500);
   const transactions = await getTransactionsHistoryData();
 
   return (

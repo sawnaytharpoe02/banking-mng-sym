@@ -1,12 +1,7 @@
 import db from "@/db";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { formatCurrency } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatCurrency, wait } from "@/lib/utils";
 
 async function getRecentCustomersData() {
   return await db.user.findMany({
@@ -25,6 +20,7 @@ async function getRecentCustomersData() {
 }
 
 const RecentCustomersChart = async () => {
+  await wait(3000);
   const customers = await getRecentCustomersData();
 
   return (

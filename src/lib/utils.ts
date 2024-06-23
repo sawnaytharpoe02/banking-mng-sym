@@ -5,6 +5,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", {
   currency: "MMK",
   style: "currency",

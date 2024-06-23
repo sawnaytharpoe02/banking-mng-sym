@@ -1,13 +1,16 @@
 import { formatNumber } from "@/lib/utils";
-import DashboardAnalyticsCard from "./dashboard-card";
+import DashboardAnalyticsCard from "./dashboard-analytics-card";
 import {
   getRevenueData,
   getCustomersData,
   getAccountsData,
   getTransactionsData,
 } from "@/lib/data";
+import { wait } from "@/lib/utils";
 
 const CardWrapper = async () => {
+  await wait(2000);
+
   const [revenue, customers, accounts, transactions] = await Promise.all([
     getRevenueData(),
     getCustomersData(),
