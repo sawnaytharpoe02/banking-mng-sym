@@ -17,7 +17,7 @@ type SubmenuDropdownProps = {
   index: number;
 };
 
-const SubmenuDropdown = ({ item, index }: SubmenuDropdownProps) => {
+const SidebarSubmenuDropdown = ({ item, index }: SubmenuDropdownProps) => {
   const pathname = usePathname();
 
   return (
@@ -55,4 +55,4 @@ const SubmenuDropdown = ({ item, index }: SubmenuDropdownProps) => {
   );
 };
 
-export default SubmenuDropdown;
+export default SidebarSubmenuDropdown;

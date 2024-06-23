@@ -5,7 +5,7 @@ import GenerateCustomerButton from "@/components/ui/customer/generate-cusotmer-b
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
-import AppInputSearch from "@/components/ui/AppInputSearch";
+import AppInputSearch from "@/components/ui/Search";
 import PagePagination from "../_components/PagePagination";
 import { fetchCustomerPages } from "@/lib/data";
 import { Suspense } from "react";

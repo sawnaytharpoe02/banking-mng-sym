@@ -2,7 +2,7 @@
 
 import { State } from "@prisma/client";
 import React, { useState } from "react";
-import AppInputSearch from "@/components/ui/AppInputSearch";
+import AppInputSearch from "@/components/ui/Search";
 import StateTable from "./table";
 
 const StateList = ({ data }: { data: State[] }) => {

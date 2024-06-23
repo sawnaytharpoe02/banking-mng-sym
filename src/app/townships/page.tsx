@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import TownshipTable from "@/components/ui/townships/table";
-import AppInputSearch from "@/components/ui/AppInputSearch";
+import AppInputSearch from "@/components/ui/Search";
 import PagePagination from "@/app/_components/PagePagination";
 import { fetchTownshipPages } from "@/lib/data";
 import { Suspense } from "react";

@@ -5,12 +5,12 @@ import { Input } from "./input";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useDebounceCallback } from "@/hooks/useDebounce";
 
-interface AppInputSearchProps {
+interface SearchProps {
   onSearch?: (term: string) => void;
   options: "client" | "server";
 }
 
-const AppInputSearch = ({ onSearch, options }: AppInputSearchProps) => {
+const Search = ({ onSearch, options }: SearchProps) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -46,4 +46,4 @@ const AppInputSearch = ({ onSearch, options }: AppInputSearchProps) => {
   );
 };
 
-export default AppInputSearch;
+export default Search;

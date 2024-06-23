@@ -4,7 +4,7 @@ import PageHeader from "../_components/PageHeader";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
-import AppInputSearch from "@/components/ui/AppInputSearch";
+import AppInputSearch from "@/components/ui/Search";
 import PagePagination from "../_components/PagePagination";
 import { fetchAccountPages } from "@/lib/data";
 import { Suspense } from "react";
@@ -36,7 +36,7 @@ const AccountListPage = async ({
       <div className="h-80 overflow-y-auto">
         <Suspense key={query + currentPage} fallback={<AccountTableSkeleton />}>
           <AccountTable
-            query={query} 
+            query={query}
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
           />

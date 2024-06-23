@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SideLink from "./SideLink";
-import SubmenuDropdown from "./SubmenuDropdown";
+import SubmenuDropdown from "./SidebarSubmenuDropdown";
 
 export interface ISidebarItems {
   title: string;
