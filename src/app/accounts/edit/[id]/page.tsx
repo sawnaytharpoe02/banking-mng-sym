@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "@/components/ui/account/account-form";
-import { fetchedCustomerData, getAccountById } from "@/lib/data";
+import { getAccountById } from "@/lib/data/account";
+import { fetchedAllCustomerData } from "@/lib/data/user";
 
 const EditAccountPage = async ({
   params: { id },
@@ -9,7 +10,7 @@ const EditAccountPage = async ({
 }) => {
   const [account, customerData] = await Promise.all([
     getAccountById(id),
-    fetchedCustomerData(),
+    fetchedAllCustomerData(),
   ]);
 
   if (!account)
@@ -24,7 +25,7 @@ const EditAccountPage = async ({
       <div className="space-y-2">
         <h1 className="text-2xl">Edit Account</h1>
         <p>
-          Make changes to the Account info here. Click save when you're done.
+          Make changes to the Account info here. Click save when you are done.
         </p>
       </div>
       <Form account={account} customer={customerData} />

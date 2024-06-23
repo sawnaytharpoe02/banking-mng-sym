@@ -3,9 +3,9 @@ import TranscationHistoryForm from "@/components/ui/reports/transcation-history/
 import PageHeader from "@/app/_components/PageHeader";
 import TransactionHistoryTable from "@/components/ui/reports/transcation-history/table";
 import PagePagination from "@/app/_components/PagePagination";
-import { fetchTransactionHistoryPages } from "@/lib/data";
 import { Suspense } from "react";
 import { TransactionHistoryTableSkeleton } from "@/components/ui/skeletons";
+import { fetchTransactionHistoryPages } from "@/lib/data/report";
 
 const TransactionHistoryPage = async ({
   searchParams,

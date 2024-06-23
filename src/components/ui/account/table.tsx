@@ -16,8 +16,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import { formatCurrency } from "@/lib/utils";
-import { fetchedAccountData } from "@/lib/data";
 import DeleteDropdownItem from "../DeleteDropdownItem";
+import { fetchedAccountData } from "@/lib/data/account";
 
 type AccountTableProps = {
   query: string;

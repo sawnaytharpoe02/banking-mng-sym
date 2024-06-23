@@ -66,7 +66,7 @@ const CustomerForm = ({
 
   const townshipsWithState = useMemo(() => {
     return townshipData?.filter((item) => item.stateCode === selectedState);
-  }, [selectedState]);
+  }, [selectedState, townshipData]);
 
   const onSubmit = (values: z.infer<typeof CustomerFormSchema>) => {
     startTransition(async () => {

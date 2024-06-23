@@ -1,11 +1,9 @@
 import React from "react";
 import Form from "@/components/ui/customer/customer-form";
-import {
-  fetchedAllTownshipData,
-  fetchedAllStateData,
-  getCustomerById,
-} from "@/lib/data";
 import PageHeader from "@/app/_components/PageHeader";
+import { getCustomerById } from "@/lib/data/user";
+import { fetchedAllStateData } from "@/lib/data/state";
+import { fetchedAllTownshipData } from "@/lib/data/township";
 
 const EditCustomerPage = async ({
   params: { id },
@@ -30,7 +28,7 @@ const EditCustomerPage = async ({
     <div>
       <div className="space-y-2 mb-6">
         <PageHeader className="mb-0">Edit Customer</PageHeader>
-        <p>Make changes to the customer here. Click save when you're done.</p>
+        <p>Make changes to the customer here. Click save when you are done.</p>
       </div>
       <Form
         customer={customer}

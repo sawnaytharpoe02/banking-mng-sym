@@ -15,8 +15,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
-import { fetchedTownshipData } from "@/lib/data";
 import DeleteDropdownItem from "../DeleteDropdownItem";
+import { fetchedTownshipData } from "@/lib/data/township";
 
 type TownshipTableProps = {
   query: string;

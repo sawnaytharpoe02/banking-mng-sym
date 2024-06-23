@@ -1,11 +1,9 @@
 import React from "react";
 import Form from "@/components/ui/customer/customer-form";
-import {
-  fetchedAllStateData,
-  fetchedAllTownshipData,
-  getCustomerById,
-} from "@/lib/data";
 import PageHeader from "@/app/_components/PageHeader";
+import { getCustomerById } from "@/lib/data/user";
+import { fetchedAllStateData } from "@/lib/data/state";
+import { fetchedAllTownshipData } from "@/lib/data/township";
 
 const ViewCustomerPage = async ({
   params: { id },

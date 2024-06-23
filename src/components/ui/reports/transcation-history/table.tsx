@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
 import dayjs from "dayjs";
-import { fetchedTranscationHistoryData } from "@/lib/data";
+import { fetchedTranscationHistoryData } from "@/lib/data/report";
 
 type TransactionHistoryTableProps = {
   fromDate: string;

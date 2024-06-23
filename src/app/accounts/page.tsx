@@ -4,11 +4,11 @@ import PageHeader from "../_components/PageHeader";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
-import AppInputSearch from "@/components/ui/Search";
+import Search from "@/components/ui/Search";
 import PagePagination from "../_components/PagePagination";
-import { fetchAccountPages } from "@/lib/data";
 import { Suspense } from "react";
 import { AccountTableSkeleton } from "@/components/ui/skeletons";
+import { fetchAccountPages } from "@/lib/data/account";
 
 const AccountListPage = async ({
   searchParams,
@@ -25,7 +25,7 @@ const AccountListPage = async ({
     <div>
       <PageHeader>Account List</PageHeader>
       <div className="flex items-center justify-between mb-6">
-        <AppInputSearch options="server" />
+        <Search options="server" />
         <Button asChild>
           <Link href="/accounts/create">
             <PlusIcon className="w-4 h-4 mr-2" />

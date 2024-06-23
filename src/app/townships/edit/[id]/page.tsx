@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "@/components/ui/townships/township-form";
-import { fetchedAllStateData, getTownshipById } from "@/lib/data";
+import { fetchedAllStateData } from "@/lib/data/state";
+import { getTownshipById } from "@/lib/data/township";
 
 const EditTownshipPage = async ({
   params: { id },
@@ -23,7 +24,7 @@ const EditTownshipPage = async ({
     <div className="p-8 w-full space-y-6">
       <div className="space-y-2">
         <h1 className="text-2xl">Edit Township</h1>
-        <p>Make changes to the Township here. Click save when you're done.</p>
+        <p>Make changes to the Township here. Click save when you are done.</p>
       </div>
       <Form township={township} stateData={stateData} />
     </div>

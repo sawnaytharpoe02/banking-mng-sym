@@ -1,13 +1,14 @@
 import React from "react";
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/account/account-form";
-import { getAccountById, fetchedCustomerData } from "@/lib/data";
+import { getAccountById } from "@/lib/data/account";
+import { fetchedAllCustomerData } from "@/lib/data/user";
 
 const EditAccount = async ({ params: { id } }: { params: { id: string } }) => {
-    const [account, customerData] = await Promise.all([
-      getAccountById(id),
-      fetchedCustomerData(),
-    ]);
+  const [account, customerData] = await Promise.all([
+    getAccountById(id),
+    fetchedAllCustomerData(),
+  ]);
 
   if (!account)
     return (

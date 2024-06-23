@@ -2,8 +2,8 @@
 
 import { z } from "zod";
 import { DepositWithDrawFormSchema, TransferFormSchema } from "@/schemas";
-import { getAccount } from "@/lib/data";
 import db from "@/db";
+import { getAccount } from "@/lib/data/account";
 import { revalidatePath } from "next/cache";
 
 export async function transferTransaction(
@@ -17,7 +17,8 @@ export async function transferTransaction(
 
   const { transferFromAcc, transferToAcc, amount } = validation.data;
 
-  if(transferFromAcc === transferToAcc) return {error: "Transfer to and from account cannot be the same."}
+  if (transferFromAcc === transferToAcc)
+    return { error: "Transfer to and from account cannot be the same." };
 
   const [existTransferFromAcc, existTransferToAcc] = await Promise.all([
     getAccount(transferFromAcc),
@@ -49,8 +50,8 @@ export async function transferTransaction(
         data: {
           fromAccountNumber: transferFromAcc,
           toAccountNumber: transferToAcc,
-          amount
-        }
+          amount,
+        },
       }),
     ]);
 

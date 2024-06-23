@@ -1,12 +1,7 @@
 import { formatNumber } from "@/lib/utils";
 import DashboardAnalyticsCard from "./dashboard-analytics-card";
-import {
-  getRevenueData,
-  getCustomersData,
-  getAccountsData,
-  getTransactionsData,
-} from "@/lib/data";
 import { wait } from "@/lib/utils";
+import { getRevenueData, getCustomersData, getAccountsData, getTransactionsData } from "@/lib/data/dashboard";
 
 const CardWrapper = async () => {
   await wait(2000);

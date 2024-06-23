@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import TownshipTable from "@/components/ui/townships/table";
-import AppInputSearch from "@/components/ui/Search";
+import Search from "@/components/ui/Search";
 import PagePagination from "@/app/_components/PagePagination";
-import { fetchTownshipPages } from "@/lib/data";
 import { Suspense } from "react";
 import { TownshipTableSkeleton } from "@/components/ui/skeletons";
+import { fetchTownshipPages } from "@/lib/data/township";
 
 const TownshipListPage = async ({
   searchParams,
@@ -26,7 +26,7 @@ const TownshipListPage = async ({
     <div>
       <PageHeader>Township List</PageHeader>
       <div className="flex items-center justify-between mb-6">
-        <AppInputSearch options="server" />
+        <Search options="server" />
         <div className="flex items-center gap-4">
           <GenerateTownshipButton />
           <Button asChild>
@@ -47,7 +47,6 @@ const TownshipListPage = async ({
             itemsPerPage={itemsPerPage}
           />
         </Suspense>
-        {/* <TownshipTableSkeleton /> */}
       </div>
       <div className="mt-12">
         <PagePagination totalPages={totalPages} itemsPerPage={itemsPerPage} />

@@ -1,10 +1,11 @@
 import React from "react";
 import PageHeader from "@/app/_components/PageHeader";
 import Form from "@/components/ui/townships/township-form";
-import { fetchedStateData } from "@/lib/data";
+import { fetchedAllStateData } from "@/lib/data/state";
 
 const CreateTownshipPage = async () => {
-  const stateData = await fetchedStateData();
+  const stateData = await fetchedAllStateData();
+
   return (
     <div>
       <PageHeader>Create Township</PageHeader>

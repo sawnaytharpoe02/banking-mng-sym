@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/state/state-form";
-import { getStateById } from "@/lib/data";
+import { getStateById } from "@/lib/data/state";
 
 const EditState = async ({ params: { id } }: { params: { id: string } }) => {
   const state = await getStateById(id);

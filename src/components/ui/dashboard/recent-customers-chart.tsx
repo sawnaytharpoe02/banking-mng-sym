@@ -1,23 +1,7 @@
-import db from "@/db";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency, wait } from "@/lib/utils";
-
-async function getRecentCustomersData() {
-  return await db.user.findMany({
-    take: 5,
-    include: {
-      account: {
-        select: {
-          balance: true,
-        },
-      },
-    },
-    orderBy: {
-      created_at: "desc",
-    },
-  });
-}
+import { getRecentCustomersData } from "@/lib/data/dashboard";
 
 const RecentCustomersChart = async () => {
   await wait(3000);
@@ -47,14 +31,14 @@ const RecentCustomersChart = async () => {
               <p className="text-sm text-muted-foreground text-ellipsis overflow-hidden">
                 {customer.email}
               </p>
-              {customer.account.map((acc) => (
-                <p className="hidden md:inline-block font-medium">
+              {customer.account.map((acc, i) => (
+                <p key={i} className="hidden md:inline-block font-medium">
                   {formatCurrency(acc.balance)}
                 </p>
               ))}
             </div>
-            {customer.account.map((acc) => (
-              <div className="ml-auto font-medium block md:hidden">
+            {customer.account.map((acc, i) => (
+              <div key={i} className="ml-auto font-medium block md:hidden">
                 {formatCurrency(acc.balance)}
               </div>
             ))}

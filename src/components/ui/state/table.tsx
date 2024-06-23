@@ -35,7 +35,7 @@ const StateTable = ({ data }: StateTableProps) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((item, i) => (
+        {data?.map((item, i) => (
           <TableRow key={item.id}>
             <TableCell>{i + 1}</TableCell>
             <TableCell>{item.stateCode}</TableCell>
@@ -49,7 +49,7 @@ const StateTable = ({ data }: StateTableProps) => {
                   <DropdownMenuItem asChild>
                     <Link href={`/states/edit/${item.id}`}>Edit</Link>
                   </DropdownMenuItem>
-                  <DeleteDropdownItem id={item.id} options="state"/>
+                  <DeleteDropdownItem id={item.id} options="state" />
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
@@ -61,7 +61,3 @@ const StateTable = ({ data }: StateTableProps) => {
 };
 
 export default StateTable;
-
-// <button className="w-full flex justify-start items-center text-sm px-2 py-1.5 rounded-sm text-white hover:bg-destructive transition-colors focus:bg-destructive">
-//   Delete
-// </button>;

@@ -5,11 +5,11 @@ import GenerateCustomerButton from "@/components/ui/customer/generate-cusotmer-b
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
-import AppInputSearch from "@/components/ui/Search";
+import Search from "@/components/ui/Search";
 import PagePagination from "../_components/PagePagination";
-import { fetchCustomerPages } from "@/lib/data";
 import { Suspense } from "react";
 import { CustomerTableSkeleton } from "@/components/ui/skeletons";
+import { fetchCustomerPages } from "@/lib/data/user";
 
 const CustomerListPage = async ({
   searchParams,
@@ -26,7 +26,7 @@ const CustomerListPage = async ({
     <div>
       <PageHeader>Customer List</PageHeader>
       <div className="flex items-center justify-between mb-6">
-        <AppInputSearch options="server" />
+        <Search options="server" />
         <div className="flex items-center gap-4">
           <GenerateCustomerButton />
           <Button asChild>

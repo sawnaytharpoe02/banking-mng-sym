@@ -1,12 +1,13 @@
 import React from "react";
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/townships/township-form";
-import { fetchedStateData, getTownshipById } from "@/lib/data";
+import { fetchedAllStateData } from "@/lib/data/state";
+import { getTownshipById } from "@/lib/data/township";
 
 const EditTownship = async ({ params: { id } }: { params: { id: string } }) => {
   const [township, stateData] = await Promise.all([
     getTownshipById(id),
-    fetchedStateData(),
+    fetchedAllStateData(),
   ]);
 
   if (!township)

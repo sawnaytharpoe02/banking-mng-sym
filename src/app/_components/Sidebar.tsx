@@ -86,7 +86,7 @@ const Sidebar = () => {
                 />
               );
             } else {
-              return <SubmenuDropdown index={i} item={item} />;
+              return <SubmenuDropdown key={i + item.title} index={i} item={item} />;
             }
           })}
         </nav>

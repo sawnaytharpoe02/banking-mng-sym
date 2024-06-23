@@ -16,8 +16,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
-import { fetchedCustomerData } from "@/lib/data";
 import DeleteDropdownItem from "../DeleteDropdownItem";
+import { fetchedCustomerData } from "@/lib/data/user";
 
 type CustomerTableProps = {
   query: string;

@@ -1,4 +1,3 @@
-import db from "@/db";
 import {
   Table,
   TableBody,
@@ -19,27 +18,7 @@ import { Button } from "../button";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
 import { wait } from "@/lib/utils";
-
-async function getTransactionsHistoryData() {
-  return await db.transactionHistory.findMany({
-    take: 6,
-    include: {
-      fromAccount: {
-        include: {
-          customer: { select: { email: true, customerName: true } },
-        },
-      },
-      toAccount: {
-        include: {
-          customer: { select: { email: true, customerName: true } },
-        },
-      },
-    },
-    orderBy: {
-      created_at: "desc",
-    },
-  });
-}
+import { getTransactionsHistoryData } from "@/lib/data/dashboard";
 
 const TransactionsChart = async () => {
   await wait(2500);

@@ -1,6 +1,6 @@
 import React from "react";
 import StateForm from "@/components/ui/state/state-form";
-import { getStateById } from "@/lib/data";
+import { getStateById } from "@/lib/data/state";
 
 const EditStatePage = async ({
   params: { id },
@@ -20,7 +20,7 @@ const EditStatePage = async ({
     <div className="p-8 w-full space-y-6">
       <div className="space-y-2">
         <h1 className="text-2xl">Edit State</h1>
-        <p>Make changes to the State here. Click save when you're done.</p>
+        <p>Make changes to the State here. Click save when you are done.</p>
       </div>
       <StateForm state={state} />
     </div>
