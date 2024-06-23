@@ -1,10 +1,10 @@
 import React from "react";
 import PageHeader from "@/app/_components/PageHeader";
 import Form from "@/components/ui/account/account-form";
-import { fetchedCustomerData } from "@/lib/data";
+import { fetchedAllCustomerData } from "@/lib/data";
 
 const CreateAccountPage = async () => {
-  const customerData = await fetchedCustomerData();
+  const customerData = await fetchedAllCustomerData();
 
   return (
     <div>

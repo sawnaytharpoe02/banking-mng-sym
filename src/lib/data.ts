@@ -19,6 +19,15 @@ export const fetchedAllTownshipData = async () => {
   }
 };
 
+export const fetchedAllCustomerData = async () => {
+  noStore();
+  try {
+    return await db.user.findMany({ orderBy: { created_at: "desc" } });
+  } catch (error) {
+    return null;
+  }
+};
+
 export const fetchTownshipPages = async (
   itemsPerPage: number,
   query: string

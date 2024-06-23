@@ -7,7 +7,7 @@ import {
   DollarSign,
   Users,
 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,10 +25,64 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import db from "@/db";
+import { formatCurrency, formatNumber } from "@/lib/utils";
+
+async function getRevenueData() {
+  // Get the first and last day of the current month
+  const startOfCurrentMonth = new Date(new Date().setDate(1));
+  const endOfCurrentMonth = new Date(
+    new Date(startOfCurrentMonth).setMonth(startOfCurrentMonth.getMonth() + 1)
+  );
+
+  // Get the first and last day of the previous month
+  const startOfPreviousMonth = new Date(
+    new Date().setMonth(new Date().getMonth() - 1)
+  );
+  startOfPreviousMonth.setDate(1);
+  const endOfPreviousMonth = new Date(
+    new Date(startOfPreviousMonth).setMonth(startOfPreviousMonth.getMonth() + 1)
+  );
+
+  // Calculate the total balance for the current month
+  const currentMonthTotalBalance = await db.account.aggregate({
+    _sum: {
+      balance: true,
+    },
+    where: {
+      created_at: {
+        gte: startOfCurrentMonth,
+        lt: endOfCurrentMonth,
+      },
+    },
+  });
+
+  // Calculate the total balance for the previous month
+  const previousMonthTotalBalance = await db.account.aggregate({
+    _sum: {
+      balance: true,
+    },
+    where: {
+      created_at: {
+        gte: startOfPreviousMonth,
+        lt: endOfPreviousMonth,
+      },
+    },
+  });
+
+  // Calculate the percentage change
+  const currentTotal = currentMonthTotalBalance._sum.balance || 0;
+  const previousTotal = previousMonthTotalBalance._sum.balance || 0;
+  const percentageChange = previousTotal
+    ? ((currentTotal - previousTotal) / previousTotal) * 100
+    : 100;
+
+  return {
+    totalRevenue: currentTotal,
+    percentageChange,
+  };
+}
 
 async function getCustomersData() {
-  const totalUsers = await db.user.count();
-
   const newUsers = await db.user.count({
     where: {
       created_at: {
@@ -51,7 +105,6 @@ async function getCustomersData() {
     : 100;
 
   return {
-    totalUsers,
     newUsers,
     userPercentageChange,
   };
@@ -104,7 +157,8 @@ async function getTransactionsData() {
 }
 
 const Dashboard = async () => {
-  const [customers, accounts, transactions] = await Promise.all([
+  const [revenue, customers, accounts, transactions] = await Promise.all([
+    getRevenueData(),
     getCustomersData(),
     getAccountsData(),
     getTransactionsData(),
@@ -112,20 +166,20 @@ const Dashboard = async () => {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+      <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-4">
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <DashboardAnalyticsCard
-            title="Total Customers"
-            amount={customers.totalUsers}
-            percentage={customers.userPercentageChange.toFixed(2)}
-            icon={<Users className="h-4 w-4 text-muted-foreground" />}
+            title="Total Revenue"
+            amount={formatNumber(revenue.totalRevenue)}
+            percentage={revenue.percentageChange.toFixed(2)}
+            icon={<DollarSign className="h-4 w-4 text-muted-foreground" />}
           />
 
           <DashboardAnalyticsCard
             title="New Customers"
             amount={customers.newUsers}
             percentage={customers.userPercentageChange.toFixed(2)}
-            icon={<Activity className="h-4 w-4 text-muted-foreground" />}
+            icon={<Users className="h-4 w-4 text-muted-foreground" />}
           />
 
           <DashboardAnalyticsCard
@@ -139,11 +193,11 @@ const Dashboard = async () => {
             title="Transactions"
             amount={transactions.totalTransactions}
             percentage={transactions.transactionsPercentageChange.toFixed(2)}
-            icon={<DollarSign className="h-4 w-4 text-muted-foreground" />}
+            icon={<Activity className="h-4 w-4 text-muted-foreground" />}
           />
         </div>
 
-        <div className="grid gap-4 md:gap-8 lg:grid-cols-2">
+        <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
           <TransactionsDashboardCard />
           <RecentCustomersDashboardCard />
         </div>
@@ -156,7 +210,7 @@ export default Dashboard;
 
 type DashboardAnalyticsCardProps = {
   title: string;
-  amount: number;
+  amount: number | string;
   percentage: string;
   icon: React.ReactNode;
 };
@@ -183,18 +237,41 @@ const DashboardAnalyticsCard = ({
   );
 };
 
-const TransactionsDashboardCard = () => {
+async function getTransactionsHistoryData() {
+  return await db.transactionHistory.findMany({
+    take: 6,
+    include: {
+      fromAccount: {
+        include: {
+          customer: { select: { email: true, customerName: true } },
+        },
+      },
+      toAccount: {
+        include: {
+          customer: { select: { email: true, customerName: true } },
+        },
+      },
+    },
+    orderBy: {
+      created_at: "desc",
+    },
+  });
+}
+
+const TransactionsDashboardCard = async () => {
+  const transactions = await getTransactionsHistoryData();
+
   return (
-    <Card className="xl:col-span-1" x-chunk="dashboard-01-chunk-1">
+    <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-1">
       <CardHeader className="flex flex-row items-center">
         <div className="grid gap-2">
           <CardTitle>Transactions</CardTitle>
           <CardDescription>
-            Recent transactions from your store.
+            Recent transactions from your system.
           </CardDescription>
         </div>
         <Button asChild size="sm" className="ml-auto gap-1">
-          <Link href="#">
+          <Link href="/reports/transaction-history">
             View All
             <ArrowUpRight className="h-4 w-4" />
           </Link>
@@ -204,27 +281,35 @@ const TransactionsDashboardCard = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Customer</TableHead>
-              <TableHead className="hidden xl:table-column">Type</TableHead>
-              <TableHead className="hidden xl:table-column">Status</TableHead>
-              <TableHead className="hidden xl:table-column">Date</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
+              <TableHead className="w-5/12">From Account</TableHead>
+              <TableHead className="w-5/12">To Account</TableHead>
+              <TableHead className="w-2/12 text-right">Amount</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Liam Johnson</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  liam@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Sale</TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-23
-              </TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-            </TableRow>
+            {transactions.map((transaction) => (
+              <TableRow key={transaction.id}>
+                <TableCell>
+                  <div className="font-medium">
+                    {transaction.fromAccount.customer.customerName}
+                  </div>
+                  <div className="hidden text-sm text-muted-foreground md:inline">
+                    {transaction.fromAccount.customer.email}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="font-medium">
+                    {transaction.toAccount.customer.customerName}
+                  </div>
+                  <div className="hidden text-sm text-muted-foreground md:inline">
+                    {transaction.toAccount.customer.email}
+                  </div>
+                </TableCell>
+                <TableCell className="text-right">
+                  {formatCurrency(transaction.amount)}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </CardContent>
@@ -232,26 +317,61 @@ const TransactionsDashboardCard = () => {
   );
 };
 
-const RecentCustomersDashboardCard = () => {
+async function getRecentCustomersData() {
+  return await db.user.findMany({
+    take: 5,
+    include: {
+      account: {
+        select: {
+          balance: true,
+        },
+      },
+    },
+    orderBy: {
+      created_at: "desc",
+    },
+  });
+}
+const RecentCustomersDashboardCard = async () => {
+  const customers = await getRecentCustomersData();
+
   return (
     <Card className="xl:col-span-1" x-chunk="dashboard-01-chunk-2">
       <CardHeader>
-        <CardTitle>Recent Sales</CardTitle>
+        <CardTitle>Recent Customers</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-8">
-        <div className="flex items-center gap-4">
-          <Avatar className="hidden h-9 w-9 sm:flex">
-            <AvatarImage src="/avatars/01.png" alt="Avatar" />
-            <AvatarFallback>OM</AvatarFallback>
-          </Avatar>
-          <div className="grid gap-1">
-            <p className="text-sm font-medium leading-none">Olivia Martin</p>
-            <p className="text-sm text-muted-foreground">
-              olivia.martin@email.com
-            </p>
+        {customers.map((customer) => (
+          <div key={customer.id} className="flex gap-4">
+            <Avatar className="hidden h-9 w-9 sm:flex">
+              <AvatarFallback>
+                {customer.customerName
+                  .split(" ")
+                  .slice(0, 2)
+                  .map((name) => name.charAt(0).toUpperCase())
+                  .join("")}
+              </AvatarFallback>
+            </Avatar>
+            <div className="grid gap-1">
+              <p className="text-sm font-medium leading-none">
+                {customer.customerName}
+              </p>
+              <p className="text-sm text-muted-foreground text-ellipsis overflow-hidden">
+                {customer.email}
+              </p>
+              {customer.account.map((acc) => (
+                <p className="hidden md:inline-block font-medium">
+                  {formatCurrency(acc.balance)}
+                </p>
+              ))}
+            </div>
+            {customer.account.map((acc) => (
+              <div className="ml-auto font-medium block md:hidden">
+                {formatCurrency(acc.balance)}
+              </div>
+            ))}
           </div>
-          <div className="ml-auto font-medium">+$1,999.00</div>
-        </div>
+        ))}
       </CardContent>
     </Card>
   );

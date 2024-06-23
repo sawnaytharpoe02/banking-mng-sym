@@ -36,7 +36,7 @@ const AccountListPage = async ({
       <div className="h-80 overflow-y-auto">
         <Suspense key={query + currentPage} fallback={<AccountTableSkeleton />}>
           <AccountTable
-            query={query}
+            query={query} 
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
           />
