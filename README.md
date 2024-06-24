@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+---
 
-## Getting Started
+# Banking Management System
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+  This app is for practicing the foundations of Next.js and building a fully functional mini banking management system that utilizes all the latest features. It allows for efficient handling of customer accounts, transactions, and other basic banking-related activities. I gained practical experience from scratch to deployment.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **📊 Dashboard Metrics**
+- **📍 State and Township setup**
+- **👥 Customers**
+- **💼 Account Management**
+- **💸 Transfer, Deposit, Withdraw**
+- **📜 Transaction History**
+- **🔍 Server-side pagination, searching**
+- **⏳ Loading Skeleton**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Tech Stack
 
-## Learn More
+- **Frontend**: Next.js(App router), TypeScript, Chadcn ui
+- **Database**: PostgreSQL
+- **Deployment**: Vercel, Render
 
-To learn more about Next.js, take a look at the following resources:
+## Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sawnaytharpoe02/banking-mng-sym.git
+   cd banking-mng-sym
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. Install dependencies:
+   ```bash
+   yarn install or npm install
+   ```
 
-## Deploy on Vercel
+3. Set up the database:
+   - Ensure you have PostgreSQL installed.
+   - Create a `.env` file in the root directory and configure your database URL:
+     ```env
+     DATABASE_URL="postgresql://user:password@localhost:5432/banking"
+     ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Run Prisma migrations:
+   ```bash
+   npx prisma migrate dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+5. Start the development server:
+   ```bash
+   yarn dev or npm run dev
+   ```
+
+## Usage
+
+- Visit `http://localhost:3000` to view the application.
+- Use the dashboard to manage accounts and transactions.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+---
+
+Feel free to modify or add any additional information as needed!
