@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import AccountTable from "@/components/ui/account/table";
 import PageHeader from "../_components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,10 @@ import PagePagination from "../_components/PagePagination";
 import { Suspense } from "react";
 import { AccountTableSkeleton } from "@/components/ui/skeletons";
 import { fetchAccountPages } from "@/lib/data/account";
+
+export const metadata: Metadata = {
+  title: "Accounts",
+};
 
 const AccountListPage = async ({
   searchParams,

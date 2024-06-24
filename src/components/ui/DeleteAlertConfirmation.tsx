@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { deleteTownship } from "@/app/_actions/township";
 import { deleteUser } from "@/app/_actions/customer";
 import { deleteAccount } from "@/app/_actions/account";
-import { useDeleteAlert } from "@/app/context";
+import { useDeleteAlert } from "@/context";
 
 const DeleteAlertConfirmation = () => {
   const [pending, startTransition] = useTransition();

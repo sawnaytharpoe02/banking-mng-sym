@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { DropdownMenuItem } from "./dropdown-menu";
-import { useDeleteAlert } from "@/app/context";
+import { useDeleteAlert } from "@/context";
 
 type DeleteDropdownItemProps = {
   id: string;

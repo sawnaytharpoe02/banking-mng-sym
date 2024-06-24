@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { AppWrapper } from "../context";
+import { AppWrapper } from "../../context";
 import DeleteAlertConfirmation from "@/components/ui/DeleteAlertConfirmation";
 import { Toaster } from "@/components/ui/toaster";
 

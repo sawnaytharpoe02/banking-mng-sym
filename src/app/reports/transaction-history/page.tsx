@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import TranscationHistoryForm from "@/components/ui/reports/transcation-history/form";
 import PageHeader from "@/app/_components/PageHeader";
 import TransactionHistoryTable from "@/components/ui/reports/transcation-history/table";
@@ -6,6 +7,10 @@ import PagePagination from "@/app/_components/PagePagination";
 import { Suspense } from "react";
 import { TransactionHistoryTableSkeleton } from "@/components/ui/skeletons";
 import { fetchTransactionHistoryPages } from "@/lib/data/report";
+
+export const metadata: Metadata = {
+  title: "Transaction History",
+};
 
 const TransactionHistoryPage = async ({
   searchParams,

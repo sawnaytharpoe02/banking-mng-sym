@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import CustomerTable from "@/components/ui/customer/table";
 import PageHeader from "../_components/PageHeader";
 import GenerateCustomerButton from "@/components/ui/customer/generate-cusotmer-btn";
@@ -10,6 +11,10 @@ import PagePagination from "../_components/PagePagination";
 import { Suspense } from "react";
 import { CustomerTableSkeleton } from "@/components/ui/skeletons";
 import { fetchCustomerPages } from "@/lib/data/user";
+
+export const metadata: Metadata = {
+  title: "Customers",
+};
 
 const CustomerListPage = async ({
   searchParams,

@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import type { Metadata } from "next";
 import PageHeader from "../_components/PageHeader";
 import { Button } from "@/components/ui/button";
 import GenerateStateButton from "@/components/ui/state/generate-state-btn";
@@ -7,6 +8,10 @@ import { PlusIcon } from "lucide-react";
 import StateList from "@/components/ui/state/state-list";
 import { fetchedAllStateData } from "@/lib/data/state";
 import { StateTableSkeleton } from "@/components/ui/skeletons";
+
+export const metadata: Metadata = {
+  title: "States",
+};
 
 const StateListPage = async () => {
   const stateData = await fetchedAllStateData();

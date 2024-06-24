@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import PageHeader from "@/app/_components/PageHeader";
 import GenerateTownshipButton from "@/components/ui/townships/generate-township-btn";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,10 @@ import PagePagination from "@/app/_components/PagePagination";
 import { Suspense } from "react";
 import { TownshipTableSkeleton } from "@/components/ui/skeletons";
 import { fetchTownshipPages } from "@/lib/data/township";
+
+export const metadata: Metadata = {
+  title: "Townships",
+};
 
 const TownshipListPage = async ({
   searchParams,
