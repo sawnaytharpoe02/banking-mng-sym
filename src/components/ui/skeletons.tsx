@@ -125,14 +125,12 @@ export const AccountTableSkeleton = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          <TableRowSkeleton cols={6} />
-          <TableRowSkeleton cols={6} />
-          <TableRowSkeleton cols={6} />
-          <TableRowSkeleton cols={6} />
-          <TableRowSkeleton cols={6} />
-          <TableRowSkeleton cols={6} />
-        </TableRow>
+        <TableRowSkeleton cols={6} />
+        <TableRowSkeleton cols={6} />
+        <TableRowSkeleton cols={6} />
+        <TableRowSkeleton cols={6} />
+        <TableRowSkeleton cols={6} />
+        <TableRowSkeleton cols={6} />
       </TableBody>
     </Table>
   );
