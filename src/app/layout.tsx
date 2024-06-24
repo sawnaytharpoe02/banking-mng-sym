@@ -5,6 +5,7 @@ import "./globals.css";
 import Sidebar from "./_components/Sidebar";
 import Topbar from "./_components/Topbar";
 import ClientLayout from "./_components/ClientLayout";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: {
@@ -29,7 +30,10 @@ export default function RootLayout({
           <div>
             <Topbar />
             <div className="h-[92vh] md:h-[90vh] p-4 md:p-6 overflow-y-auto">
-              <ClientLayout>{children}</ClientLayout>
+              <ClientLayout>
+                {children}
+                <SpeedInsights />
+              </ClientLayout>
             </div>
           </div>
         </div>

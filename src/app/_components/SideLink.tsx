@@ -18,7 +18,7 @@ const SideLink = ({ title, href, icon }: SideLinkProps) => {
     <Link
       href={href}
       className={cn(
-        "flex items-center gap-3 rounded-lg px-3 py-2 my-1 text-muted-foreground transition-all hover:text-primary",
+        "flex items-center text-sm gap-3 rounded-lg px-3 py-2 my-1 text-muted-foreground transition-all hover:text-primary",
         { "text-primary bg-muted": pathname === href }
       )}>
       {icon}

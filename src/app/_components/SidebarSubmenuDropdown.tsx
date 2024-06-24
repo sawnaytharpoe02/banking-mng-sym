@@ -36,12 +36,12 @@ const SidebarSubmenuDropdown = ({ item, index }: SubmenuDropdownProps) => {
           {item.icon}
           {item.title}
         </AccordionTrigger>
-        <AccordionContent>
+        <AccordionContent className="pb-1">
           {item.subMenu?.map((subItem, j) => (
             <div
               key={`${index}_${j}_${subItem.title}`}
               className={cn(
-                "rounded-lg text-muted-foreground hover:text-primary ps-10 py-2",
+                "rounded-lg text-muted-foreground hover:text-primary ps-10 pt-4",
                 {
                   "text-primary": subItem.href === pathname,
                 }

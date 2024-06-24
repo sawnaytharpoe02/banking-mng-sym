@@ -21,7 +21,7 @@ export interface ISidebarItems {
   subMenu?: { title: string; href: string }[];
 }
 
-const SidebarItems: ISidebarItems[] = [
+export const SidebarItems: ISidebarItems[] = [
   {
     title: "State",
     href: "/states",
