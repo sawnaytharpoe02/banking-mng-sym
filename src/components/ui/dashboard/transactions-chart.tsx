@@ -17,11 +17,9 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "../button";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
-import { wait } from "@/lib/utils";
 import { getTransactionsHistoryData } from "@/lib/data/dashboard";
 
 const TransactionsChart = async () => {
-  await wait(2500);
   const transactions = await getTransactionsHistoryData();
 
   return (
@@ -50,29 +48,39 @@ const TransactionsChart = async () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {transactions.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell>
-                  <div className="font-medium">
-                    {transaction.fromAccount.customer.customerName}
-                  </div>
-                  <div className="hidden text-sm text-muted-foreground md:inline">
-                    {transaction.fromAccount.customer.email}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="font-medium">
-                    {transaction.toAccount.customer.customerName}
-                  </div>
-                  <div className="hidden text-sm text-muted-foreground md:inline">
-                    {transaction.toAccount.customer.email}
-                  </div>
-                </TableCell>
-                <TableCell className="text-right">
-                  {formatCurrency(transaction.amount)}
+            {transactions?.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <p className="my-3 text-sm text-muted-foreground mx-auto w-fit">
+                    There is no transactions.
+                  </p>
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              transactions?.map((transaction) => (
+                <TableRow key={transaction.id}>
+                  <TableCell>
+                    <div className="font-medium">
+                      {transaction.fromAccount.customer.customerName}
+                    </div>
+                    <div className="hidden text-sm text-muted-foreground md:inline">
+                      {transaction.fromAccount.customer.email}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="font-medium">
+                      {transaction.toAccount.customer.customerName}
+                    </div>
+                    <div className="hidden text-sm text-muted-foreground md:inline">
+                      {transaction.toAccount.customer.email}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {formatCurrency(transaction.amount)}
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </CardContent>
