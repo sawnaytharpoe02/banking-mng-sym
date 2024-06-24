@@ -32,6 +32,32 @@ const TableRowSkeleton = ({ cols }: { cols: number }) => {
   );
 };
 
+export const StateTableSkeleton = () => {
+  return (
+    <div className="h-80">
+      <Table>
+        <TableCaption>A list of country states.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-1/6">#</TableHead>
+            <TableHead className="w-2/6">State Code</TableHead>
+            <TableHead className="w-2/6">State Name</TableHead>
+            <TableHead className="w-1/6 sr-only">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRowSkeleton cols={4} />
+          <TableRowSkeleton cols={4} />
+          <TableRowSkeleton cols={4} />
+          <TableRowSkeleton cols={4} />
+          <TableRowSkeleton cols={4} />
+          <TableRowSkeleton cols={4} />
+        </TableBody>
+      </Table>
+    </div>
+  );
+};
+
 export const TownshipTableSkeleton = () => {
   return (
     <div className="h-80">

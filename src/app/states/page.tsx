@@ -6,6 +6,7 @@ import Link from "next/link";
 import { PlusIcon } from "lucide-react";
 import StateList from "@/components/ui/state/state-list";
 import { fetchedAllStateData } from "@/lib/data/state";
+import { StateTableSkeleton } from "@/components/ui/skeletons";
 
 const StateListPage = async () => {
   const stateData = await fetchedAllStateData();
@@ -24,7 +25,7 @@ const StateListPage = async () => {
           </Button>
         </div>
       </div>
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<StateTableSkeleton />}>
         <StateList data={stateData} />
       </Suspense>
     </div>
