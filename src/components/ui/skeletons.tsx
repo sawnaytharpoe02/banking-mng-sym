@@ -150,14 +150,12 @@ export const TransactionHistoryTableSkeleton = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          <TableRowSkeleton cols={5} />
-          <TableRowSkeleton cols={5} />
-          <TableRowSkeleton cols={5} />
-          <TableRowSkeleton cols={5} />
-          <TableRowSkeleton cols={5} />
-          <TableRowSkeleton cols={5} />
-        </TableRow>
+        <TableRowSkeleton cols={5} />
+        <TableRowSkeleton cols={5} />
+        <TableRowSkeleton cols={5} />
+        <TableRowSkeleton cols={5} />
+        <TableRowSkeleton cols={5} />
+        <TableRowSkeleton cols={5} />
       </TableBody>
     </Table>
   );
