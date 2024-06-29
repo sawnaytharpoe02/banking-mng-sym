@@ -1,7 +1,9 @@
 "use server";
 
+import { LoginFormSchema } from "@/schemas";
 import { SignJWT, jwtVerify, EncryptJWT } from "jose";
 import { cookies } from "next/headers";
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 
 const secretKey = "secretkey";
@@ -31,16 +33,21 @@ export async function hashedPassword(password: string) {
   return Buffer.from(arrayBuffer).toString("base64");
 }
 
-export async function login(formData: FormData) {
-  // Verify credentials && get the user
-  const name = formData.get("name") as string;
-  const password = formData.get("password") as string;
+export async function login(values: z.infer<typeof LoginFormSchema>) {
+  // Verify credentials
+  const result = LoginFormSchema.safeParse(values);
+
+  if (result.success === false) {
+    return { error: "Invalid fields." };
+  }
+
+  const { name, password } = result.data;
 
   const isAuthenticated =
     name === process.env.LOGIN_USER &&
     (await hashedPassword(password)) === process.env.LOGIN_PASSWORD;
 
-  if (!isAuthenticated) throw new Error("Authenticated Failed.");
+  if (!isAuthenticated) return { error: "Invalid credentials." };
 
   const user = { name, password };
   // Create the session (removing expires as you mentioned)
@@ -48,6 +55,8 @@ export async function login(formData: FormData) {
 
   // Save the session in a cookie
   cookies().set("session", session, { httpOnly: true });
+
+  return { success: "Logged in!" };
 }
 
 export async function logout() {

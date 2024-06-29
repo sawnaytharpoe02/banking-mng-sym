@@ -15,9 +15,11 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="flex h-full flex-col items-center justify-center space-y-4">
-      <h2 className="text-center">Something went wrong!</h2>
-      <Button onClick={() => reset()}>Try again</Button>
+    <main className="flex h-screen items-center justify-center">
+      <div className="text-center  space-y-4">
+        <h2 className="text-center">Something went wrong!</h2>
+        <Button onClick={() => reset()}>Try again</Button>
+      </div>
     </main>
   );
 }

@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+export const LoginFormSchema = z.object({
+  name: z.string().min(2, { message: "username is required." }),
+  password: z.string().min(6, { message: "password is required." }),
+});
+
 export const StateFormSchema = z.object({
   stateCode: z.string().min(6, { message: "state code is required" }),
   stateName: z.string().min(2, { message: "state name is required." }),
