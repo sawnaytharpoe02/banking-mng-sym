@@ -1,22 +1,21 @@
 import React from "react";
 import type { Metadata } from "next";
-import CustomerTable from "@/components/ui/customer/table";
-import PageHeader from "../_components/PageHeader";
-import GenerateCustomerButton from "@/components/ui/customer/generate-cusotmer-btn";
+import AccountTable from "@/components/ui/account/table";
+import PageHeader from "@/app/_components/PageHeader";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
 import Search from "@/components/ui/Search";
-import PagePagination from "../_components/PagePagination";
+import PagePagination from "@/app/_components/PagePagination";
 import { Suspense } from "react";
-import { CustomerTableSkeleton } from "@/components/ui/skeletons";
-import { fetchCustomerPages } from "@/lib/data/user";
+import { AccountTableSkeleton } from "@/components/ui/skeletons";
+import { fetchAccountPages } from "@/lib/data/account";
 
 export const metadata: Metadata = {
-  title: "Customers",
+  title: "Accounts",
 };
 
-const CustomerListPage = async ({
+const AccountListPage = async ({
   searchParams,
 }: {
   searchParams?: { query?: string; page?: string; count?: string };
@@ -25,28 +24,23 @@ const CustomerListPage = async ({
   const currentPage = Number(searchParams?.page) || 1;
   const itemsPerPage = Number(searchParams?.count) || 6;
 
-  const totalPages = await fetchCustomerPages(itemsPerPage, query);
+  const totalPages = await fetchAccountPages(itemsPerPage, query);
 
   return (
     <div>
-      <PageHeader>Customer List</PageHeader>
+      <PageHeader>Account List</PageHeader>
       <div className="flex items-center justify-between mb-6">
         <Search options="server" />
-        <div className="flex items-center gap-4">
-          <GenerateCustomerButton />
-          <Button asChild>
-            <Link href="/customers/create">
-              <PlusIcon className="w-4 h-4 mr-2" />
-              Create
-            </Link>
-          </Button>
-        </div>
+        <Button asChild>
+          <Link href="/accounts/create">
+            <PlusIcon className="w-4 h-4 mr-2" />
+            Create
+          </Link>
+        </Button>
       </div>
       <div className="h-80 overflow-y-auto">
-        <Suspense
-          key={query + currentPage}
-          fallback={<CustomerTableSkeleton />}>
-          <CustomerTable
+        <Suspense key={query + currentPage} fallback={<AccountTableSkeleton />}>
+          <AccountTable
             query={query}
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
@@ -60,4 +54,4 @@ const CustomerListPage = async ({
   );
 };
 
-export default CustomerListPage;
+export default AccountListPage;

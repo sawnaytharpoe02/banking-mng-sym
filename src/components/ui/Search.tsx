@@ -16,7 +16,6 @@ const Search = ({ onSearch, options }: SearchProps) => {
   const { replace } = useRouter();
 
   const handleSearch = useDebounceCallback((term: string) => {
-    console.log("searching", term);
     if (options === "client") {
       if (onSearch) onSearch(term);
       return;

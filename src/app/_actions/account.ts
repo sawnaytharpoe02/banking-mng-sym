@@ -16,7 +16,6 @@ function generateAccountNumber() {
 export async function createAccount(
   values: z.infer<typeof CreateAccountSchema>
 ) {
-  console.log(values);
   const validation = CreateAccountSchema.safeParse(values);
 
   if (!validation.success) {

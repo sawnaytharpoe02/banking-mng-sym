@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { CircleUser } from "lucide-react";
+import { logout } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 const RightSideMenuDropdown = () => {
   return (
@@ -25,7 +27,16 @@ const RightSideMenuDropdown = () => {
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem>
+          <form
+            action={async () => {
+              "use server";
+              await logout();
+              redirect("/auth/login");
+            }}>
+            <button type="submit">Logout</button>
+          </form>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

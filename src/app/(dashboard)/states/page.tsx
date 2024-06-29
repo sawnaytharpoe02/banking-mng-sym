@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import type { Metadata } from "next";
-import PageHeader from "../_components/PageHeader";
+import PageHeader from "@/app/_components/PageHeader";
 import { Button } from "@/components/ui/button";
 import GenerateStateButton from "@/components/ui/state/generate-state-btn";
 import Link from "next/link";
