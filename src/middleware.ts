@@ -6,7 +6,6 @@ export async function middleware(req: NextRequest) {
 
   // Retrieve the session from cookies
   const session = req.cookies.get("session");
-  console.log("hey session check", session);
 
   // If the user is trying to access the login page and already has a session, redirect them to the home page
   if (pathname.startsWith("/auth/login") && session) {

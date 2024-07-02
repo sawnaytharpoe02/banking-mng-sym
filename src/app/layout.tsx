@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/toaster";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: {
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body
         className={cn("bg-background font-sans antialiased overflow-hidden")}>
         {children}
+        <NextTopLoader color="#AEAEAE" showSpinner={false} />
         <Toaster />
         <SpeedInsights />
       </body>
