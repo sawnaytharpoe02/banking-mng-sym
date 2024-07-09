@@ -32,7 +32,7 @@ const DashboardAnalyticsCard = ({
       <CardContent>
         <div className="text-2xl font-bold">{amount}</div>
         <p className="text-xs text-muted-foreground">
-          +{percentage}% from last month
+          {percentage}% from last month
         </p>
       </CardContent>
     </Card>

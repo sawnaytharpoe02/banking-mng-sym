@@ -1,6 +1,9 @@
 import db from "@/db";
+import { unstable_noStore as noStore } from "next/cache";
 
 export const getRevenueData = async () => {
+  noStore();
+
   try {
     // Get the first and last day of the current month
     const startOfCurrentMonth = new Date(new Date().setDate(1));
@@ -55,13 +58,15 @@ export const getRevenueData = async () => {
     return {
       totalRevenue: currentTotal,
       percentageChange,
-    };
+    }
   } catch (error) {
     return null;
   }
 };
 
 export const getCustomersData = async () => {
+  noStore();
+
   try {
     const currentMonthUsers = await db.user.count({
       where: {
@@ -95,6 +100,8 @@ export const getCustomersData = async () => {
 };
 
 export const getAccountsData = async () => {
+  noStore();
+
   try {
     const totalAccounts = await db.account.count();
 
@@ -122,6 +129,8 @@ export const getAccountsData = async () => {
 };
 
 export const getTransactionsData = async () => {
+  noStore();
+
   try {
     const totalTransactions = await db.transactionHistory.count();
 
@@ -151,6 +160,7 @@ export const getTransactionsData = async () => {
 };
 
 export const getTransactionsHistoryData = async () => {
+  noStore();
   try {
     return await db.transactionHistory.findMany({
       take: 6,
@@ -176,6 +186,7 @@ export const getTransactionsHistoryData = async () => {
 };
 
 export const getRecentCustomersData = async () => {
+  noStore();
   try {
     return await db.user.findMany({
       take: 5,
