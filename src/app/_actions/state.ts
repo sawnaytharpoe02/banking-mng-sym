@@ -68,6 +68,8 @@ export async function generateState() {
     stateName: item.StateName,
   }));
 
+  console.log(stateData)
+
   const res = await db.state.createMany({
     data: stateData,
     skipDuplicates: true,

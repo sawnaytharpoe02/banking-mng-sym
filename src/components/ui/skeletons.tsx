@@ -180,12 +180,12 @@ const CardSkeleton = () => {
 
 export const AnalyticsCardSkeleton = () => {
   return (
-    <>
+    <div>
       <CardSkeleton />
       <CardSkeleton />
       <CardSkeleton />
       <CardSkeleton />
-    </>
+    </div>
   );
 };
 
